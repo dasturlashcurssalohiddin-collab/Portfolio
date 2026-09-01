@@ -118,7 +118,6 @@ const firebaseConfig = { databaseURL: "https://biu-e54d1-default-rtdb.asia-south
 const LOCAL_STORAGE_KEY = "salohiddin-portfolio-v3-local";
 
 let portfolioRef = null;
-let currentData = {};
 
 const defaults = {
  profile:{
@@ -137,27 +136,41 @@ const defaults = {
  contacts:[["Telegram","@salohiddinTm","https://t.me/salohiddinTm"]]
 };
 
+// Modul ichidagi o'zgaruvchini global oynaga olamiz
+window.currentData = {};
+
+function esc(s){
+  return String(s??"").replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
 async function initAdmin() {
   try {
     const firebaseApp = initializeApp(firebaseConfig);
     const rtdb = getDatabase(firebaseApp);
     portfolioRef = ref(rtdb, "portfolio");
     const snap = await get(portfolioRef);
-    if(snap.exists()) currentData = snap.val();
+    if(snap.exists()) window.currentData = snap.val();
   } catch(e) { 
     console.warn("Firebase ulanmadi, kompyuter xotirasidan olinadi."); 
   }
   
-  if(!currentData || !Object.keys(currentData).length) {
-    try { currentData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)); } catch(e){}
+  if(!window.currentData || !Object.keys(window.currentData).length) {
+    try { window.currentData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)); } catch(e){}
   }
   
-  currentData = currentData || defaults;
+  window.currentData = window.currentData || JSON.parse(JSON.stringify(defaults));
   renderForm();
 }
 
 function renderForm() {
-  const p = currentData.profile || {};
+  const p = window.currentData.profile || {};
   document.getElementById("pName").value = p.name || "";
   document.getElementById("pEyebrow").value = p.eyebrow || "";
   document.getElementById("pTitle").value = p.title || "";
@@ -169,37 +182,37 @@ function renderForm() {
   (p.facts || []).forEach(([k, v], i) => {
     factsBox.innerHTML += `
       <div class="item-row">
-        <input value="${esc(k)}" placeholder="Kalit" onchange="currentData.profile.facts[${i}][0]=this.value">
-        <input value="${esc(v)}" placeholder="Qiymat" onchange="currentData.profile.facts[${i}][1]=this.value">
+        <input value="${esc(k)}" placeholder="Kalit" onchange="window.currentData.profile.facts[${i}][0]=this.value">
+        <input value="${esc(v)}" placeholder="Qiymat" onchange="window.currentData.profile.facts[${i}][1]=this.value">
         <button class="btn btn-danger btn-sm" onclick="removeFact(${i})">✕</button>
       </div>`;
   });
 
   const statsBox = document.getElementById("statsContainer");
   statsBox.innerHTML = "";
-  (currentData.stats || []).forEach(([a, b], i) => {
+  (window.currentData.stats || []).forEach(([a, b], i) => {
     statsBox.innerHTML += `
       <div class="item-row">
-        <input value="${esc(a)}" onchange="currentData.stats[${i}][0]=this.value">
-        <input value="${esc(b)}" onchange="currentData.stats[${i}][1]=this.value">
+        <input value="${esc(a)}" onchange="window.currentData.stats[${i}][0]=this.value">
+        <input value="${esc(b)}" onchange="window.currentData.stats[${i}][1]=this.value">
       </div>`;
   });
 
   const skillsBox = document.getElementById("skillsContainer");
   skillsBox.innerHTML = "";
-  (currentData.skills || []).forEach((g, gi) => {
-    let itemsHtml = g.items.map(([n, l, lvl], ii) => `
+  (window.currentData.skills || []).forEach((g, gi) => {
+    let itemsHtml = (g.items || []).map(([n, l, lvl], ii) => `
       <div class="item-row">
-        <input value="${esc(n)}" placeholder="Nomi" style="flex:2" onchange="currentData.skills[${gi}].items[${ii}][0]=this.value">
-        <input type="number" value="${l}" placeholder="%" style="flex:1" onchange="currentData.skills[${gi}].items[${ii}][1]=+this.value">
-        <input value="${esc(lvl)}" placeholder="Daraja" style="flex:1" onchange="currentData.skills[${gi}].items[${ii}][2]=this.value">
+        <input value="${esc(n)}" placeholder="Nomi" style="flex:2" onchange="window.currentData.skills[${gi}].items[${ii}][0]=this.value">
+        <input type="number" value="${l}" placeholder="%" style="flex:1" onchange="window.currentData.skills[${gi}].items[${ii}][1]=+this.value">
+        <input value="${esc(lvl)}" placeholder="Daraja" style="flex:1" onchange="window.currentData.skills[${gi}].items[${ii}][2]=this.value">
         <button class="btn btn-danger btn-sm" onclick="removeSkillItem(${gi},${ii})">✕</button>
       </div>
     `).join("");
 
     skillsBox.innerHTML += `
       <div style="border:1px solid var(--line); padding:10px; margin-bottom:10px; border-radius:8px">
-        <div class="field"><label>Guruh Nomi</label><input value="${esc(g.group)}" onchange="currentData.skills[${gi}].group=this.value"></div>
+        <div class="field"><label>Guruh Nomi</label><input value="${esc(g.group)}" onchange="window.currentData.skills[${gi}].group=this.value"></div>
         <div>${itemsHtml}</div>
         <button class="btn btn-sm" onclick="addSkillItem(${gi})">+ Element qo'shish</button>
       </div>`;
@@ -207,95 +220,90 @@ function renderForm() {
 
   const projBox = document.getElementById("projectsContainer");
   projBox.innerHTML = "";
-  (currentData.projects || []).forEach((p, i) => {
+  (window.currentData.projects || []).forEach((p, i) => {
     projBox.innerHTML += `
       <div style="border:1px solid var(--line); padding:12px; margin-bottom:12px; border-radius:8px">
         <div class="grid-2">
-          <div class="field"><label>Nomi</label><input value="${esc(p.name)}" onchange="currentData.projects[${i}].name=this.value"></div>
-          <div class="field"><label>Turi</label><input value="${esc(p.type)}" onchange="currentData.projects[${i}].type=this.value"></div>
+          <div class="field"><label>Nomi</label><input value="${esc(p.name)}" onchange="window.currentData.projects[${i}].name=this.value"></div>
+          <div class="field"><label>Turi</label><input value="${esc(p.type)}" onchange="window.currentData.projects[${i}].type=this.value"></div>
         </div>
-        <div class="field"><label>Tavsif</label><textarea onchange="currentData.projects[${i}].desc=this.value">${esc(p.desc)}</textarea></div>
+        <div class="field"><label>Tavsif</label><textarea onchange="window.currentData.projects[${i}].desc=this.value">${esc(p.desc)}</textarea></div>
         <div class="grid-2">
-          <div class="field"><label>Teglar (vergul bilan)</label><input value="${esc((p.tags||[]).join(', '))}" onchange="currentData.projects[${i}].tags=this.value.split(',').map(t=>t.trim())"></div>
-          <div class="field"><label>Link (URL)</label><input value="${esc(p.url||'')}" onchange="currentData.projects[${i}].url=this.value"></div>
+          <div class="field"><label>Teglar (vergul bilan)</label><input value="${esc((p.tags||[]).join(', '))}" onchange="window.currentData.projects[${i}].tags=this.value.split(',').map(t=>t.trim())"></div>
+          <div class="field"><label>Link (URL)</label><input value="${esc(p.url||'')}" onchange="window.currentData.projects[${i}].url=this.value"></div>
         </div>
-        <button class="btn btn-danger btn-sm" onclick="removeProject(${i})">Loyiha-ni o'chirish</button>
+        <button class="btn btn-danger btn-sm" onclick="removeProject(${i})">Loyihani o'chirish</button>
       </div>`;
   });
 
   const achBox = document.getElementById("achievementsContainer");
   achBox.innerHTML = "";
-  (currentData.achievements || []).forEach(([t, d], i) => {
+  (window.currentData.achievements || []).forEach(([t, d], i) => {
     achBox.innerHTML += `
       <div class="item-row">
-        <input value="${esc(t)}" style="flex:1" onchange="currentData.achievements[${i}][0]=this.value">
-        <input value="${esc(d)}" style="flex:2" onchange="currentData.achievements[${i}][1]=this.value">
+        <input value="${esc(t)}" style="flex:1" onchange="window.currentData.achievements[${i}][0]=this.value">
+        <input value="${esc(d)}" style="flex:2" onchange="window.currentData.achievements[${i}][1]=this.value">
         <button class="btn btn-danger btn-sm" onclick="removeAchievement(${i})">✕</button>
       </div>`;
   });
 
   const contBox = document.getElementById("contactsContainer");
   contBox.innerHTML = "";
-  (currentData.contacts || []).forEach(([label, val, link], i) => {
+  (window.currentData.contacts || []).forEach(([t, v, l], i) => {
     contBox.innerHTML += `
       <div class="item-row">
-        <input value="${esc(label)}" style="flex:1" onchange="currentData.contacts[${i}][0]=this.value">
-        <input value="${esc(val)}" style="flex:1" onchange="currentData.contacts[${i}][1]=this.value">
-        <input value="${esc(link)}" style="flex:1" onchange="currentData.contacts[${i}][2]=this.value">
+        <input value="${esc(t)}" style="flex:1" placeholder="Nomi" onchange="window.currentData.contacts[${i}][0]=this.value">
+        <input value="${esc(v)}" style="flex:1" placeholder="Matn" onchange="window.currentData.contacts[${i}][1]=this.value">
+        <input value="${esc(l)}" style="flex:1" placeholder="Link" onchange="window.currentData.contacts[${i}][2]=this.value">
       </div>`;
   });
 }
 
-function esc(s){return String(s??"").replace(/"/g, "&quot;")}
+// Global qilish kerak bo'lgan funksiyalarni window ob'ektiga yuklaymiz
+window.addFact = () => { window.currentData.profile.facts.push(["Yangi", "Qiymat"]); renderForm(); };
+window.removeFact = (i) => { window.currentData.profile.facts.splice(i, 1); renderForm(); };
 
-window.addFact = () => { currentData.profile.facts.push(["Yangi kalit", "Qiymat"]); renderForm(); };
-window.removeFact = (i) => { currentData.profile.facts.splice(i, 1); renderForm(); };
-window.addSkillItem = (gi) => { currentData.skills[gi].items.push(["Yangi", 50, "O'rganilmoqda"]); renderForm(); };
-window.removeSkillItem = (gi, ii) => { currentData.skills[gi].items.splice(ii, 1); renderForm(); };
-window.addProject = () => { currentData.projects.push({name:"Yangi Loyiha", type:"Web", desc:"", tags:[], url:""}); renderForm(); };
-window.removeProject = (i) => { currentData.projects.splice(i, 1); renderForm(); };
-window.addAchievement = () => { currentData.achievements.push(["Sarlavha", "Tavsif"]); renderForm(); };
-window.removeAchievement = (i) => { currentData.achievements.splice(i, 1); renderForm(); };
+window.addSkillItem = (gi) => { window.currentData.skills[gi].items.push(["Yangi", 50, "Boshlang'ich"]); renderForm(); };
+window.removeSkillItem = (gi, ii) => { window.currentData.skills[gi].items.splice(ii, 1); renderForm(); };
 
-document.getElementById("pImageFile").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      currentData.profile.image = evt.target.result;
-      toast("Rasm yuklandi! 'Saqlash' tugmasini bosing.");
-    };
-    reader.readAsDataURL(file);
-  }
-});
+window.addProject = () => { window.currentData.projects.push({name:"Yangi Loyiha", type:"Web", desc:"", tags:[], url:""}); renderForm(); };
+window.removeProject = (i) => { window.currentData.projects.splice(i, 1); renderForm(); };
+
+window.addAchievement = () => { window.currentData.achievements.push(["Sarlavha", "Tavsif"]); renderForm(); };
+window.removeAchievement = (i) => { window.currentData.achievements.splice(i, 1); renderForm(); };
 
 window.saveData = async () => {
-  currentData.profile.name = document.getElementById("pName").value;
-  currentData.profile.eyebrow = document.getElementById("pEyebrow").value;
-  currentData.profile.title = document.getElementById("pTitle").value;
-  currentData.profile.intro = document.getElementById("pIntro").value;
-  currentData.profile.about = document.getElementById("pAbout").value.split("\n\n").filter(Boolean);
+  window.currentData.profile.name = document.getElementById("pName").value;
+  window.currentData.profile.eyebrow = document.getElementById("pEyebrow").value;
+  window.currentData.profile.title = document.getElementById("pTitle").value;
+  window.currentData.profile.intro = document.getElementById("pIntro").value;
+  window.currentData.profile.about = document.getElementById("pAbout").value.split("\n\n").filter(Boolean);
 
-  // Har doim kompyuter xotirasiga saqlash
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentData));
-
-  // Firebase bazasiga yozishga urinib ko'radi
-  if(portfolioRef) {
-    try {
-      await set(portfolioRef, currentData);
-    } catch(e) {
-      console.warn("Firebase-ga yozilmadi, ma'lumot faqat mahaliydan olindi.");
-    }
+  const fileInput = document.getElementById("pImageFile");
+  if (fileInput.files && fileInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      window.currentData.profile.image = e.target.result;
+      await processSave();
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  } else {
+    await processSave();
   }
-  
-  toast("O'zgarishlar saqlandi! Saytga o'tishingiz mumkin.");
 };
 
-function toast(msg){
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 3000);
+async function processSave() {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(window.currentData));
+  if (portfolioRef) {
+    try {
+      await set(portfolioRef, window.currentData);
+      showToast("Firebase va LocalStorage-ga saqlandi!");
+    } catch(e) {
+      showToast("LocalStorage-ga saqlandi (Firebase xatosi)");
+    }
+  } else {
+    showToast("LocalStorage-ga saqlandi!");
+  }
 }
 
 initAdmin();
