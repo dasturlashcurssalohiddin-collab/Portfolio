@@ -1,51 +1,898 @@
-<!doctype html>
+S<!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="utf-8">
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Teshaboyev Salohiddin — yosh dasturchi, robototexnika va web texnologiyalariga qiziquvchi o'quvchi.">
-<title>Teshaboyev Salohiddin — Portfolio</title>
+
+<title>Portfolio Admin</title>
+
 <style>
-:root{
-  --ink:#101828; --muted:#667085; --line:#e5e7eb; --paper:#ffffff; --soft:#f7f8fa;
-  --brand:#0f766e; --brand-dark:#0b5d57; --accent:#b45309; --shadow:0 20px 60px rgba(16,24,40,.10);
-  --radius:18px; --max:1180px;
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Inter,system-ui,sans-serif;
+background:#f5f7f9;
+color:#101828;
 }
-*{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
-a{text-decoration:none;color:inherit} button,input,textarea{font:inherit}
-button{cursor:pointer}.container{width:min(calc(100% - 40px),var(--max));margin:auto}
-.topline{height:4px;background:linear-gradient(90deg,var(--brand),#159f93,#d08a2d)}
-.header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.90);backdrop-filter:blur(16px);border-bottom:1px solid rgba(16,24,40,.07)}
-.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:40px;height:40px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;letter-spacing:-.08em}
-.brand strong{display:block;font-size:14px;letter-spacing:-.01em}.brand span{display:block;color:var(--muted);font-size:11px;margin-top:1px}
-.navlinks{display:flex;align-items:center;gap:24px;color:#475467;font-size:14px;font-weight:600}.navlinks a:hover{color:var(--brand)}
-.menu-btn{display:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px}
-.hero{padding:90px 0 72px;background:linear-gradient(180deg,#fff 0%,#f8fbfa 100%);border-bottom:1px solid var(--line)}
-.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:60px;align-items:center}
-.eyebrow{display:flex;align-items:center;gap:9px;color:var(--brand);font-weight:800;font-size:12px;letter-spacing:.13em;text-transform:uppercase}.eyebrow:before{content:"";width:32px;height:2px;background:var(--brand)}
-h1{font-size:clamp(46px,7vw,78px);line-height:.98;letter-spacing:-.06em;margin:20px 0 24px;max-width:820px}
-.hero p{font-size:18px;color:#475467;max-width:650px;margin:0}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.btn{border-radius:12px;padding:13px 18px;border:1px solid var(--line);font-weight:750;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
-.btn-primary{background:var(--ink);border-color:var(--ink);color:#fff}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(16,24,40,.18)}
-.btn-light{background:#fff}.btn-light:hover{border-color:#98a2b3;background:#fafafa}
-.profile-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:16px;box-shadow:var(--shadow)}
-.profile-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px;background:#eef1f2}
-.profile-caption{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:14px 4px 4px;font-size:12px;color:var(--muted)}.status{display:flex;align-items:center;gap:7px}.dot{width:8px;height:8px;border-radius:50%;background:#16a34a}
-.stats{padding:26px 0;border-bottom:1px solid var(--line);background:#fff}.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.stat{padding:8px 0;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat strong{display:block;font-size:24px;letter-spacing:-.04em}.stat span{font-size:12px;color:var(--muted)}
-section{padding:92px 0}.section-head{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;margin-bottom:42px}.section-kicker{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:8px}.section-title{font-size:clamp(30px,4vw,48px);letter-spacing:-.045em;line-height:1.05;margin:0}.section-note{max-width:360px;color:var(--muted);font-size:14px}
-.about-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:28px}.prose{font-size:18px;color:#344054}.prose p:first-child{margin-top:0}.info-card,.card{border:1px solid var(--line);border-radius:var(--radius);background:#fff}.info-row{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:14px}.info-row:last-child{border:0}.info-row span:first-child{color:var(--muted)}.info-row span:last-child{text-align:right;font-weight:700}
-.soft{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.skill-groups{display:grid;gap:26px}.skill-group h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.skill{padding:20px}.skill-top{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:800}.skill small{color:var(--muted);font-weight:600}.bar{height:5px;background:#edf0f2;border-radius:99px;overflow:hidden;margin-top:16px}.bar i{display:block;height:100%;background:var(--brand);border-radius:inherit}
-.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.project{padding:28px;min-height:290px;display:flex;flex-direction:column;position:relative;overflow:hidden}.project:before{content:"";position:absolute;right:-55px;top:-55px;width:180px;height:180px;border-radius:50%;background:rgba(15,118,110,.06)}.project-num{font-size:12px;color:var(--brand);font-weight:800;letter-spacing:.12em}.project h3{font-size:26px;letter-spacing:-.04em;margin:22px 0 10px}.project p{margin:0;color:var(--muted);font-size:14px}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.tag{padding:6px 9px;border-radius:99px;background:var(--soft);font-size:11px;font-weight:700;color:#475467}.project-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:24px}.project-links a{font-size:13px;font-weight:800;color:var(--brand)}
-.achievements{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.achievement{padding:22px}.achievement-icon{width:42px;height:42px;border-radius:12px;background:#fef3c7;display:grid;place-items:center;font-size:20px}.achievement h3{margin:18px 0 6px;font-size:16px}.achievement p{margin:0;color:var(--muted);font-size:13px}
-.contact-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}.contact-panel{padding:30px;background:var(--ink);color:#fff;border-radius:24px}.contact-panel h2{font-size:36px;letter-spacing:-.04em;line-height:1.05;margin:0 0 16px}.contact-panel p{color:#cbd5e1}.contact-links{margin-top:30px;display:grid;gap:10px}.contact-link{padding:14px;border:1px solid rgba(255,255,255,.13);border-radius:12px;color:#e5e7eb;font-size:13px}.contact-form{padding:30px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#475467}.field input,.field textarea{border:1px solid var(--line);border-radius:10px;padding:12px 13px;outline:none;background:#fff}.field textarea{min-height:140px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(15,118,110,.1)}
-.footer{padding:30px 0 46px;color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:22px}
-.toast{position:fixed;right:20px;bottom:20px;background:#101828;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;transform:translateY(120px);opacity:0;transition:.25s;z-index:100}.toast.show{transform:translateY(0);opacity:1}
-.admin-shell[hidden]{display:none!important}.admin-shell{display:none;min-height:100vh;background:#f5f6f8}.admin-shell.active{display:block}.admin-top{background:#101828;color:#fff;border-bottom:1px solid #344054}.admin-top .container{height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px}.admin-main{padding:36px 0 70px}.admin-heading{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}.admin-heading h1{font-size:36px;margin:0}.admin-heading p{margin:6px 0 0;color:var(--muted);font-size:14px}.admin-grid{display:grid;grid-template-columns:260px 1fr;gap:20px}.admin-menu{padding:12px;height:max-content}.admin-menu button{width:100%;border:0;background:transparent;padding:12px;border-radius:10px;text-align:left;color:#475467;font-weight:750}.admin-menu button.active,.admin-menu button:hover{background:#f0fdf9;color:var(--brand)}.admin-panel{padding:26px}.admin-panel h2{margin:0 0 22px;font-size:23px}.admin-form{display:grid;gap:16px}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}.danger{background:#fff;color:#b42318;border-color:#fecdca}.danger:hover{background:#fff5f4}.hint{font-size:12px;color:var(--muted);margin:0}.repeat-list{display:grid;gap:10px}.repeat-item{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fafafa}.repeat-item.project-row{grid-template-columns:1fr 1fr 1fr auto}.repeat-item button{height:42px}.login[hidden]{display:none!important}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#f7fbfa,#eef2f6)}.login-card{width:min(100%,430px);padding:34px;border:1px solid var(--line);background:#fff;border-radius:24px;box-shadow:var(--shadow)}.login-card h1{font-size:32px;margin:0 0 8px}.login-card p{color:var(--muted);font-size:14px;margin:0 0 24px}.login-card .field{margin-bottom:14px}.back-home{font-size:13px;color:var(--muted);font-weight:700}
-.mobile-nav{display:none}
-@media(max-width:900px){.hero-grid,.about-grid,.contact-wrap{grid-template-columns:1fr}.profile-card{max-width:430px}.skills{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:1fr}.admin-menu{display:flex;gap:6px;overflow:auto}.admin-menu button{white-space:nowrap;width:auto}.section-head{grid-template-columns:1fr}.section-note{max-width:600px}}
+
+header{
+height:72px;
+background:#101828;
+color:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+}
+
+header strong{font-size:18px}
+
+.container{
+width:min(1100px,calc(100% - 30px));
+margin:auto;
+}
+
+main{
+padding:35px 0 60px;
+}
+
+.login{
+min-height:calc(100vh - 72px);
+display:grid;
+place-items:center;
+}
+
+.login-card{
+width:min(430px,100%);
+background:white;
+border:1px solid #e5e7eb;
+border-radius:20px;
+padding:30px;
+box-shadow:0 20px 60px rgba(16,24,40,.1);
+}
+
+h1,h2{
+margin-top:0;
+}
+
+.field{
+display:grid;
+gap:7px;
+margin-bottom:15px;
+}
+
+label{
+font-size:13px;
+font-weight:700;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+border:1px solid #d0d5dd;
+border-radius:10px;
+font:inherit;
+}
+
+textarea{
+min-height:180px;
+resize:vertical;
+}
+
+button{
+border:0;
+border-radius:10px;
+padding:12px 17px;
+font-weight:800;
+cursor:pointer;
+}
+
+.primary{
+background:#101828;
+color:white;
+}
+
+.light{
+background:white;
+border:1px solid #d0d5dd;
+}
+
+.danger{
+background:#fff1f0;
+color:#b42318;
+}
+
+.hidden{
+display:none!important;
+}
+
+.admin-grid{
+display:grid;
+grid-template-columns:220px 1fr;
+gap:20px;
+}
+
+.menu{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:10px;
+height:max-content;
+}
+
+.menu button{
+display:block;
+width:100%;
+text-align:left;
+background:transparent;
+margin-bottom:5px;
+}
+
+.menu button:hover{
+background:#f2f4f7;
+}
+
+.panel{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:25px;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.message{
+padding:15px;
+border:1px solid #e5e7eb;
+border-radius:12px;
+margin-bottom:10px;
+background:#fafafa;
+}
+
+.message strong{
+display:block;
+}
+
+.message small{
+color:#667085;
+}
+
+@media(max-width:700px){
+
+.admin-grid{
+grid-template-columns:1fr;
+}
+
+.menu{
+display:flex;
+overflow:auto;
+}
+
+.menu button{
+white-space:nowrap;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<strong>TS · Portfolio Admin</strong>
+
+<button id="logoutBtn" class="light">
+Chiqish
+</button>
+
+</header>
+
+
+<div class="container">
+
+<!-- LOGIN -->
+
+<section id="loginSection" class="login">
+
+<div class="login-card">
+
+<h1>Admin panel</h1>
+
+<p>
+Davom etish uchun admin parolini kiriting.
+</p>
+
+<form id="loginForm">
+
+<div class="field">
+
+<label>Email</label>
+
+<input
+id="email"
+type="email"
+required
+placeholder="admin@example.com">
+
+</div>
+
+<div class="field">
+
+<label>Parol</label>
+
+<input
+id="password"
+type="password"
+required
+placeholder="Parol">
+
+</div>
+
+<button class="primary" style="width:100%">
+Kirish
+</button>
+
+</form>
+
+<p id="loginError" style="color:#b42318"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<main id="adminSection" class="hidden">
+
+<div class="admin-grid">
+
+<aside class="menu">
+
+<button data-tab="profile">
+Profil
+</button>
+
+<button data-tab="skills">
+Ko‘nikmalar
+</button>
+
+<button data-tab="projects">
+Loyihalar
+</button>
+
+<button data-tab="contacts">
+Aloqa
+</button>
+
+<button data-tab="messages">
+Xabarlar
+</button>
+
+</aside>
+
+
+<section class="panel">
+
+<div id="panelContent"></div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+get,
+set,
+onValue
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* ==========================
+   FIREBASE CONFIG
+========================== */
+
+const firebaseConfig = {
+
+apiKey:"BU_YERGA_API_KEY",
+
+authDomain:"biu-e54d1.firebaseapp.com",
+
+databaseURL:
+"https://biu-e54d1-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId:"biu-e54d1",
+
+storageBucket:"BU_YERGA_STORAGE_BUCKET",
+
+messagingSenderId:"BU_YERGA_MESSAGING_SENDER_ID",
+
+appId:"BU_YERGA_APP_ID"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+const auth = getAuth(app);
+
+
+/* ==========================
+   ELEMENTS
+========================== */
+
+const loginSection =
+document.getElementById("loginSection");
+
+const adminSection =
+document.getElementById("adminSection");
+
+const loginForm =
+document.getElementById("loginForm");
+
+const loginError =
+document.getElementById("loginError");
+
+const panel =
+document.getElementById("panelContent");
+
+
+/* ==========================
+   LOGIN
+========================== */
+
+loginForm.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+loginError.textContent="";
+
+}catch(error){
+
+console.error(error);
+
+loginError.textContent =
+"Email yoki parol noto‘g‘ri.";
+
+}
+
+});
+
+
+/* ==========================
+   AUTH STATE
+========================== */
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+loginSection.classList.add("hidden");
+
+adminSection.classList.remove("hidden");
+
+openTab("profile");
+
+}else{
+
+loginSection.classList.remove("hidden");
+
+adminSection.classList.add("hidden");
+
+}
+
+});
+
+
+/* ==========================
+   LOGOUT
+========================== */
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click",()=>{
+
+signOut(auth);
+
+});
+
+
+/* ==========================
+   MENU
+========================== */
+
+document
+.querySelector(".menu")
+.addEventListener("click",(e)=>{
+
+const button =
+e.target.closest("[data-tab]");
+
+if(!button)return;
+
+openTab(button.dataset.tab);
+
+});
+
+
+/* ==========================
+   OPEN TAB
+========================== */
+
+async function openTab(tab){
+
+if(tab==="profile")
+return profilePanel();
+
+if(tab==="skills")
+return skillsPanel();
+
+if(tab==="projects")
+return projectsPanel();
+
+if(tab==="contacts")
+return contactsPanel();
+
+if(tab==="messages")
+return messagesPanel();
+
+}
+
+
+/* ==========================
+   PROFILE
+========================== */
+
+async function profilePanel(){
+
+const snap =
+await get(ref(db,"portfolio/profile"));
+
+const p =
+snap.val() || {};
+
+panel.innerHTML=`
+
+<h2>Profil</h2>
+
+<div class="field">
+<label>Ism</label>
+<input id="pName" value="${esc(p.name)}">
+</div>
+
+<div class="field">
+<label>Yuqori satr</label>
+<input id="pEyebrow" value="${esc(p.eyebrow)}">
+</div>
+
+<div class="field">
+<label>Sarlavha</label>
+<input id="pTitle" value="${esc(p.title)}">
+</div>
+
+<div class="field">
+<label>Qisqa ta’rif</label>
+<textarea id="pIntro">${esc(p.intro)}</textarea>
+</div>
+
+<div class="field">
+<label>Men haqimda 1</label>
+<textarea id="about0">${esc((p.about||[])[0]||"")}</textarea>
+</div>
+
+<div class="field">
+<label>Men haqimda 2</label>
+<textarea id="about1">${esc((p.about||[])[1]||"")}</textarea>
+</div>
+
+<div class="actions">
+
+<button class="primary" id="saveProfile">
+Saqlash
+</button>
+
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document
+.getElementById("saveProfile")
+.onclick=async()=>{
+
+await set(ref(db,"portfolio/profile"),{
+
+...p,
+
+name:document.getElementById("pName").value,
+
+eyebrow:
+document.getElementById("pEyebrow").value,
+
+title:
+document.getElementById("pTitle").value,
+
+intro:
+document.getElementById("pIntro").value,
+
+about:[
+document.getElementById("about0").value,
+document.getElementById("about1").value
+]
+
+});
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   SKILLS
+========================== */
+
+async function skillsPanel(){
+
+const snap =
+await get(ref(db,"portfolio/skills"));
+
+const skills =
+snap.val() || [];
+
+panel.innerHTML=`
+
+<h2>Ko‘nikmalar</h2>
+
+<p>
+Har qatorda:
+<strong>nomi | foiz | daraja</strong>
+</p>
+
+<textarea id="skillsText"></textarea>
+
+<div class="actions">
+<button class="primary" id="saveSkills">
+Saqlash
+</button>
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document.getElementById("skillsText").value =
+skills.map(x=>x.join(" | ")).join("\n");
+
+document.getElementById("saveSkills").onclick=async()=>{
+
+const result =
+document.getElementById("skillsText")
+.value
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean)
+.map(x=>{
+
+const a=x.split("|").map(y=>y.trim());
+
+return[
+a[0],
+Number(a[1])||0,
+a[2]||""
+];
+
+});
+
+await set(
+ref(db,"portfolio/skills"),
+result
+);
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   PROJECTS
+========================== */
+
+async function projectsPanel(){
+
+const snap =
+await get(ref(db,"portfolio/projects"));
+
+const projects =
+snap.val() || [];
+
+panel.innerHTML=`
+
+<h2>Loyihalar</h2>
+
+<p>
+Har qatorda:
+<strong>Nomi | Turi | Tavsif | Teglar | URL</strong>
+</p>
+
+<textarea id="projectsText"></textarea>
+
+<div class="actions">
+<button class="primary" id="saveProjects">
+Saqlash
+</button>
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document.getElementById("projectsText").value =
+projects.map(p=>[
+p.name,
+p.type,
+p.desc,
+(p.tags||[]).join(","),
+p.url||""
+].join(" | ")).join("\n");
+
+
+document.getElementById("saveProjects").onclick=async()=>{
+
+const result =
+document.getElementById("projectsText")
+.value
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean)
+.map(x=>{
+
+const a=x.split("|").map(y=>y.trim());
+
+return{
+
+name:a[0]||"",
+
+type:a[1]||"",
+
+desc:a[2]||"",
+
+tags:(a[3]||"")
+.split(",")
+.map(x=>x.trim())
+.filter(Boolean),
+
+url:a[4]||""
+
+};
+
+});
+
+await set(
+ref(db,"portfolio/projects"),
+result
+);
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   CONTACTS
+========================== */
+
+async function contactsPanel(){
+
+const snap =
+await get(ref(db,"portfolio/contacts"));
+
+const contacts =
+snap.val() || [];
+
+panel.innerHTML=`
+
+<h2>Aloqa</h2>
+
+<p>
+Har qatorda:
+<strong>Nomi | Ko‘rsatiladigan qiymat | Link</strong>
+</p>
+
+<textarea id="contactsText"></textarea>
+
+<div class="actions">
+<button class="primary" id="saveContacts">
+Saqlash
+</button>
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document.getElementById("contactsText").value =
+contacts.map(x=>x.join(" | ")).join("\n");
+
+
+document.getElementById("saveContacts").onclick=async()=>{
+
+const result =
+document.getElementById("contactsText")
+.value
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean)
+.map(x=>{
+
+const a=x.split("|").map(y=>y.trim());
+
+return[
+a[0]||"",
+a[1]||"",
+a.slice(2).join(" | ")
+];
+
+});
+
+await set(
+ref(db,"portfolio/contacts"),
+result
+);
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   MESSAGES
+========================== */
+
+function messagesPanel(){
+
+panel.innerHTML=`
+
+<h2>Kelgan xabarlar</h2>
+
+<div id="messagesList">
+Yuklanmoqda...
+</div>
+
+`;
+
+onValue(
+ref(db,"messages"),
+(snapshot)=>{
+
+const data =
+snapshot.val() || {};
+
+const list =
+Object.entries(data)
+.reverse();
+
+if(!list.length){
+
+document.getElementById("messagesList")
+.innerHTML="<p>Hozircha xabar yo‘q.</p>";
+
+return;
+
+}
+
+document.getElementById("messagesList")
+.innerHTML =
+list.map(([id,m])=>`
+
+<div class="message">
+
+<strong>${esc(m.name)}</strong>
+
+<div>
+${esc(m.contact)}
+</div>
+
+<p>
+${esc(m.message)}
+</p>
+
+<small>
+${m.createdAt ?
+new Date(m.createdAt).toLocaleString("uz-UZ"):""}
+</small>
+
+</div>
+
+`).join("");
+
+});
+
+}
+
+
+/* ==========================
+   ESCAPE
+========================== */
+
+function esc(value){
+
+return String(value ?? "")
+.replace(/[&<>"']/g,(m)=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m]));
+
+}
+
+</script>
+
+</body>
+</html>x}.skills{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:1fr}.admin-menu{display:flex;gap:6px;overflow:auto}.admin-menu button{white-space:nowrap;width:auto}.section-head{grid-template-columns:1fr}.section-note{max-width:600px}}
 @media(max-width:680px){.navlinks{display:none}.menu-btn{display:block}.mobile-nav.open{display:grid}.mobile-nav{position:absolute;top:78px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:16px 20px;gap:14px;box-shadow:var(--shadow)}.mobile-nav a{font-weight:700;color:#475467}.hero{padding:60px 0}.stat-grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stats{padding:20px 0}.skills,.projects,.achievements{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.repeat-item,.repeat-item.project-row{grid-template-columns:1fr}.section-head{margin-bottom:28px}.footer-inner{flex-direction:column}.admin-heading{align-items:start;flex-direction:column}}
 </style>
 </head>
