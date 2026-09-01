@@ -1,299 +1,518 @@
-S<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Portfolio Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teshaboyev Salohiddin — Portfolio</title>
 
 <style>
-
 *{box-sizing:border-box}
-
+html{scroll-behavior:smooth}
 body{
-margin:0;
-font-family:Inter,system-ui,sans-serif;
-background:#f5f7f9;
-color:#101828;
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:#101828;
+    background:#fff;
+    line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,calc(100% - 40px));margin:auto}
+
+.topline{
+    height:4px;
+    background:linear-gradient(90deg,#0f766e,#159f93,#d08a2d);
 }
 
 header{
-height:72px;
-background:#101828;
-color:white;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #e5e7eb;
 }
-
-header strong{font-size:18px}
-
-.container{
-width:min(1100px,calc(100% - 30px));
-margin:auto;
+.nav{
+    height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
-
-main{
-padding:35px 0 60px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
-
-.login{
-min-height:calc(100vh - 72px);
-display:grid;
-place-items:center;
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#101828;
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-weight:800;
 }
+.brand strong{display:block}
+.brand small{color:#667085}
 
-.login-card{
-width:min(430px,100%);
-background:white;
-border:1px solid #e5e7eb;
-border-radius:20px;
-padding:30px;
-box-shadow:0 20px 60px rgba(16,24,40,.1);
+nav{
+    display:flex;
+    gap:25px;
+    color:#475467;
+    font-size:14px;
+    font-weight:700;
 }
+nav a:hover{color:#0f766e}
 
-h1,h2{
-margin-top:0;
+.hero{
+    padding:100px 0 80px;
+    background:linear-gradient(180deg,#fff,#f7fbfa);
+    border-bottom:1px solid #e5e7eb;
 }
-
-.field{
-display:grid;
-gap:7px;
-margin-bottom:15px;
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.35fr .65fr;
+    gap:60px;
+    align-items:center;
 }
-
-label{
-font-size:13px;
-font-weight:700;
+.eyebrow{
+    color:#0f766e;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.13em;
+    text-transform:uppercase;
 }
-
-input,textarea{
-width:100%;
-padding:12px;
-border:1px solid #d0d5dd;
-border-radius:10px;
-font:inherit;
+h1{
+    font-size:clamp(48px,7vw,78px);
+    line-height:.98;
+    letter-spacing:-.06em;
+    margin:20px 0;
 }
-
-textarea{
-min-height:180px;
-resize:vertical;
+.hero p{
+    max-width:680px;
+    color:#475467;
+    font-size:18px;
 }
-
-button{
-border:0;
-border-radius:10px;
-padding:12px 17px;
-font-weight:800;
-cursor:pointer;
-}
-
-.primary{
-background:#101828;
-color:white;
-}
-
-.light{
-background:white;
-border:1px solid #d0d5dd;
-}
-
-.danger{
-background:#fff1f0;
-color:#b42318;
-}
-
-.hidden{
-display:none!important;
-}
-
-.admin-grid{
-display:grid;
-grid-template-columns:220px 1fr;
-gap:20px;
-}
-
-.menu{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:16px;
-padding:10px;
-height:max-content;
-}
-
-.menu button{
-display:block;
-width:100%;
-text-align:left;
-background:transparent;
-margin-bottom:5px;
-}
-
-.menu button:hover{
-background:#f2f4f7;
-}
-
-.panel{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:16px;
-padding:25px;
-}
-
 .actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:20px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:28px;
+}
+.btn{
+    padding:13px 18px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    font-weight:750;
+    cursor:pointer;
+}
+.primary{
+    background:#101828;
+    color:white;
+    border-color:#101828;
+}
+.light{background:white}
+
+.profile{
+    padding:16px;
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:28px;
+    box-shadow:0 20px 60px rgba(16,24,40,.10);
+}
+.profile img{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    border-radius:20px;
+    background:#eef1f2;
+}
+.caption{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 4px 4px;
+    color:#667085;
+    font-size:13px;
+}
+.status{color:#16a34a}
+
+section{padding:90px 0}
+.soft{
+    background:#f7f8fa;
+    border-top:1px solid #e5e7eb;
+    border-bottom:1px solid #e5e7eb;
+}
+.section-head{
+    margin-bottom:40px;
+}
+.kicker{
+    color:#0f766e;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+}
+h2{
+    font-size:clamp(32px,5vw,48px);
+    letter-spacing:-.045em;
+    line-height:1.05;
+    margin:8px 0;
 }
 
-.message{
-padding:15px;
-border:1px solid #e5e7eb;
-border-radius:12px;
-margin-bottom:10px;
-background:#fafafa;
+.about{
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:30px;
+}
+.prose{
+    color:#344054;
+    font-size:18px;
+}
+.card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+}
+.fact{
+    padding:16px 18px;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+.fact:last-child{border-bottom:0}
+.fact span:first-child{color:#667085}
+
+.skills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+.skill{
+    padding:20px;
+}
+.skill-top{
+    display:flex;
+    justify-content:space-between;
+    font-weight:800;
+}
+.skill small{color:#667085}
+.bar{
+    height:5px;
+    background:#edf0f2;
+    border-radius:20px;
+    margin-top:15px;
+    overflow:hidden;
+}
+.bar i{
+    display:block;
+    height:100%;
+    background:#0f766e;
 }
 
-.message strong{
-display:block;
+.projects{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+.project{
+    padding:28px;
+    min-height:270px;
+    display:flex;
+    flex-direction:column;
+}
+.project-num{
+    color:#0f766e;
+    font-size:12px;
+    font-weight:800;
+}
+.project h3{
+    font-size:25px;
+    margin:20px 0 8px;
+}
+.project p{
+    color:#667085;
+    font-size:14px;
+}
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
+}
+.tag{
+    background:#f2f4f7;
+    padding:5px 9px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+}
+.project-link{
+    margin-top:auto;
+    padding-top:20px;
+    color:#0f766e;
+    font-weight:800;
 }
 
-.message small{
-color:#667085;
+.achievements{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+.achievement{padding:22px}
+.icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#fef3c7;
+    display:grid;
+    place-items:center;
+}
+.achievement p{
+    color:#667085;
+    font-size:13px;
 }
 
-@media(max-width:700px){
-
-.admin-grid{
-grid-template-columns:1fr;
+.contact{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    gap:24px;
+}
+.contact-dark{
+    background:#101828;
+    color:white;
+    padding:30px;
+    border-radius:24px;
+}
+.contact-dark p{color:#cbd5e1}
+.contact-links{
+    display:grid;
+    gap:10px;
+    margin-top:25px;
+}
+.contact-link{
+    padding:14px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:12px;
+}
+.form{
+    padding:30px;
+}
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+.field{
+    display:grid;
+    gap:7px;
+    margin-bottom:15px;
+}
+.field.full{grid-column:1/-1}
+input,textarea{
+    width:100%;
+    padding:12px 13px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    font:inherit;
+}
+textarea{
+    min-height:140px;
+    resize:vertical;
+}
+footer{
+    padding:30px 0 45px;
+    border-top:1px solid #e5e7eb;
+    color:#667085;
+    font-size:12px;
 }
 
-.menu{
-display:flex;
-overflow:auto;
+@media(max-width:850px){
+    .hero-grid,.about,.contact{grid-template-columns:1fr}
+    .skills{grid-template-columns:repeat(2,1fr)}
+    .projects{grid-template-columns:1fr}
+    .achievements{grid-template-columns:1fr}
 }
-
-.menu button{
-white-space:nowrap;
+@media(max-width:600px){
+    nav{display:none}
+    .skills{grid-template-columns:1fr}
+    .form-grid{grid-template-columns:1fr}
+    .field.full{grid-column:auto}
 }
-
-}
-
 </style>
-
 </head>
 
 <body>
 
+<div class="topline"></div>
+
 <header>
+<div class="container nav">
 
-<strong>TS · Portfolio Admin</strong>
+<a class="brand" href="#">
+<div class="logo">TS</div>
+<div>
+<strong id="brandName">Teshaboyev Salohiddin</strong>
+<small>Portfolio · Technology & Projects</small>
+</div>
+</a>
 
-<button id="logoutBtn" class="light">
-Chiqish
-</button>
+<nav>
+<a href="#about">Men haqimda</a>
+<a href="#skills">Ko‘nikmalar</a>
+<a href="#projects">Loyihalar</a>
+<a href="#contact">Bog‘lanish</a>
+</nav>
 
+</div>
 </header>
 
+<main>
 
-<div class="container">
+<section class="hero">
+<div class="container hero-grid">
 
-<!-- LOGIN -->
+<div>
+<div class="eyebrow" id="eyebrow">Young Developer · Uzbekistan</div>
 
-<section id="loginSection" class="login">
+<h1 id="title">
+Teshaboyev<br>Salohiddin
+</h1>
 
-<div class="login-card">
-
-<h1>Admin panel</h1>
-
-<p>
-Davom etish uchun admin parolini kiriting.
+<p id="intro">
+Python, C++ va web texnologiyalari bilan ishlovchi yosh dasturchi.
+Robototexnika, Telegram botlar va amaliy raqamli mahsulotlar ustida ishlayman.
 </p>
 
-<form id="loginForm">
+<div class="actions">
+<a class="btn primary" href="#projects">Loyihalarni ko‘rish ↗</a>
+<a class="btn light" href="#contact">Bog‘lanish</a>
+</div>
+</div>
+
+<aside class="profile">
+<img id="profileImage" alt="Profil rasmi">
+<div class="caption">
+<span id="profileCaption">Teshaboyev Salohiddin</span>
+<span class="status">● Faol</span>
+</div>
+</aside>
+
+</div>
+</section>
+
+<section id="about">
+<div class="container">
+
+<div class="section-head">
+<div class="kicker">01 · Profil</div>
+<h2>Men haqimda</h2>
+</div>
+
+<div class="about">
+
+<div class="prose" id="aboutText"></div>
+
+<div class="card" id="facts"></div>
+
+</div>
+</div>
+</section>
+
+<section id="skills" class="soft">
+<div class="container">
+
+<div class="section-head">
+<div class="kicker">02 · Kompetensiyalar</div>
+<h2>Bilim va ko‘nikmalar</h2>
+</div>
+
+<div class="skills" id="skillsGrid"></div>
+
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+
+<div class="section-head">
+<div class="kicker">03 · Portfolio</div>
+<h2>Tanlangan loyihalar</h2>
+</div>
+
+<div class="projects" id="projectsGrid"></div>
+
+</div>
+</section>
+
+<section class="soft">
+<div class="container">
+
+<div class="section-head">
+<div class="kicker">04 · Faoliyat</div>
+<h2>Ta’lim va yo‘nalishlar</h2>
+</div>
+
+<div class="achievements" id="achievementsGrid"></div>
+
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+
+<div class="contact">
+
+<div class="contact-dark">
+<div class="kicker" style="color:#5eead4">05 · Aloqa</div>
+<h2>Hamkorlik va yangi loyihalar uchun ochiqman.</h2>
+<p>Texnologiya, ta’lim yoki yangi loyiha haqida gaplashmoqchi bo‘lsangiz, bog‘lanishingiz mumkin.</p>
+
+<div class="contact-links" id="contactLinks"></div>
+</div>
+
+<form class="card form" id="contactForm">
+
+<div class="kicker">Xabar yuborish</div>
+
+<div class="form-grid">
 
 <div class="field">
-
-<label>Email</label>
-
-<input
-id="email"
-type="email"
-required
-placeholder="admin@example.com">
-
+<label>Ism</label>
+<input id="msgName" required placeholder="Ismingiz">
 </div>
 
 <div class="field">
+<label>Telefon yoki Telegram</label>
+<input id="msgContact" required placeholder="@username yoki +998...">
+</div>
 
-<label>Parol</label>
-
-<input
-id="password"
-type="password"
-required
-placeholder="Parol">
+<div class="field full">
+<label>Xabar</label>
+<textarea id="msgText" required placeholder="Xabaringizni yozing..."></textarea>
+</div>
 
 </div>
 
-<button class="primary" style="width:100%">
-Kirish
+<button class="btn primary" type="submit">
+Xabar yuborish
 </button>
+
+<p id="messageStatus" style="font-size:13px;color:#667085"></p>
 
 </form>
 
-<p id="loginError" style="color:#b42318"></p>
-
 </div>
-
-</section>
-
-
-<!-- ADMIN -->
-
-<main id="adminSection" class="hidden">
-
-<div class="admin-grid">
-
-<aside class="menu">
-
-<button data-tab="profile">
-Profil
-</button>
-
-<button data-tab="skills">
-Ko‘nikmalar
-</button>
-
-<button data-tab="projects">
-Loyihalar
-</button>
-
-<button data-tab="contacts">
-Aloqa
-</button>
-
-<button data-tab="messages">
-Xabarlar
-</button>
-
-</aside>
-
-
-<section class="panel">
-
-<div id="panelContent"></div>
-
-</section>
-
 </div>
+</section>
 
 </main>
 
+<footer>
+<div class="container">
+© <span id="year"></span> Teshaboyev Salohiddin · Professional Portfolio
 </div>
+</footer>
 
 
 <script type="module">
@@ -304,19 +523,10 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
 getDatabase,
 ref,
-get,
-set,
-onValue
+onValue,
+push
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
-import {
-getAuth,
-signInWithEmailAndPassword,
-onAuthStateChanged,
-signOut
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
 /* ==========================
@@ -325,20 +535,20 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 const firebaseConfig = {
 
-apiKey:"BU_YERGA_API_KEY",
+apiKey: "BU_YERGA_API_KEY",
 
-authDomain:"biu-e54d1.firebaseapp.com",
+authDomain: "biu-e54d1.firebaseapp.com",
 
 databaseURL:
 "https://biu-e54d1-default-rtdb.asia-southeast1.firebasedatabase.app",
 
-projectId:"biu-e54d1",
+projectId: "biu-e54d1",
 
-storageBucket:"BU_YERGA_STORAGE_BUCKET",
+storageBucket: "BU_YERGA_STORAGE_BUCKET",
 
-messagingSenderId:"BU_YERGA_MESSAGING_SENDER_ID",
+messagingSenderId: "BU_YERGA_MESSAGING_SENDER_ID",
 
-appId:"BU_YERGA_APP_ID"
+appId: "BU_YERGA_APP_ID"
 
 };
 
@@ -347,418 +557,306 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-const auth = getAuth(app);
+
+/* ==========================
+   DEFAULT DATA
+========================== */
+
+const defaults = {
+
+profile:{
+name:"Teshaboyev Salohiddin",
+eyebrow:"Young Developer · Uzbekistan",
+title:"Teshaboyev<br>Salohiddin",
+intro:"Python, C++ va web texnologiyalari bilan ishlovchi yosh dasturchi. Robototexnika, Telegram botlar va amaliy raqamli mahsulotlar ustida ishlayman.",
+about:[
+"Men Teshaboyev Salohiddin — dasturlash va texnologiyalarga qiziquvchi o‘quvchiman.",
+"Mening asosiy qiziqishlarim — dasturlash, Telegram botlar, web-ilovalar va elektronika."
+],
+facts:[
+["Ism","Teshaboyev Salohiddin"],
+["Maktab","10-IDUM"],
+["Yo‘nalish","Robototexnika"],
+["Tillar","O‘zbek, Nemis"],
+["Hudud","O‘zbekiston"]
+],
+image:""
+},
+
+skills:[
+["Python",85,"Asosiy"],
+["C++",55,"O‘rganilmoqda"],
+["JavaScript",55,"O‘rganilmoqda"],
+["HTML",85,"Yaxshi"],
+["CSS",80,"Yaxshi"],
+["Web UI",75,"Amaliy"],
+["Robototexnika",70,"Rivojlanmoqda"],
+["Video tahrirlash",70,"Yaxshi"],
+["Photopea",70,"Yaxshi"]
+],
+
+projects:[
+{
+name:"Tuxum Market Bot",
+type:"Telegram Bot",
+desc:"Tuxum sotish jarayonini soddalashtirish uchun yaratilgan Telegram bot.",
+tags:["Python","Telegram","Automation"],
+url:"https://t.me/txum_bot"
+},
+{
+name:"Lazzat CRM",
+type:"Oshxona CRM",
+desc:"Restoran uchun raqamli menyu va CRM konsepti.",
+tags:["Web","CRM","QR"],
+url:"https://remix-oshxona.ai.studio"
+},
+{
+name:"Sprachwerk",
+type:"Language Platform",
+desc:"Nemis tilini o‘rganishga yordam beruvchi web platforma.",
+tags:["Education","Web","AI"],
+url:"https://deutsch-kw9mqyja3-dasturlashcurssalohiddin-collabs-projects.vercel.app/"
+}
+],
+
+achievements:[
+["10-IDUM","Ixtisoslashtirilgan davlat umumta’lim maktabida ta’lim"],
+["Robototexnika","ESP32 va sensorlar bilan amaliy mashg‘ulotlar"],
+["Deutschsmart School","Nemis tili bo‘yicha qo‘shimcha ta’lim"]
+],
+
+contacts:[
+["Telefon","+998 95 100 01 30","tel:+998951000130"],
+["Telegram","@salohiddinTm","https://t.me/salohiddinTm"],
+["Telegram Bot","@txum_bot","https://t.me/txum_bot"],
+["GitHub","dasturlashcurssalohiddin-collab","https://github.com/dasturlashcurssalohiddin-collab"]
+]
+
+};
 
 
 /* ==========================
-   ELEMENTS
+   LOAD REALTIME DATA
 ========================== */
 
-const loginSection =
-document.getElementById("loginSection");
+const portfolioRef = ref(db,"portfolio");
 
-const adminSection =
-document.getElementById("adminSection");
+onValue(portfolioRef,(snapshot)=>{
 
-const loginForm =
-document.getElementById("loginForm");
+const data = snapshot.val() || defaults;
 
-const loginError =
-document.getElementById("loginError");
+render(data);
 
-const panel =
-document.getElementById("panelContent");
+});
 
 
 /* ==========================
-   LOGIN
+   RENDER
 ========================== */
 
-loginForm.addEventListener("submit",async(e)=>{
+function render(data){
+
+const p = data.profile || defaults.profile;
+
+document.getElementById("brandName").textContent =
+p.name || defaults.profile.name;
+
+document.getElementById("eyebrow").textContent =
+p.eyebrow || "";
+
+document.getElementById("title").innerHTML =
+p.title || "";
+
+document.getElementById("intro").textContent =
+p.intro || "";
+
+document.getElementById("profileCaption").textContent =
+p.name || "";
+
+if(p.image){
+document.getElementById("profileImage").src = p.image;
+}
+
+document.getElementById("aboutText").innerHTML =
+(p.about || []).map(x=>`<p>${escapeHTML(x)}</p>`).join("");
+
+document.getElementById("facts").innerHTML =
+(p.facts || []).map(x=>`
+<div class="fact">
+<span>${escapeHTML(x[0])}</span>
+<strong>${escapeHTML(x[1])}</strong>
+</div>
+`).join("");
+
+
+const skills =
+data.skills || defaults.skills;
+
+document.getElementById("skillsGrid").innerHTML =
+skills.map((x)=>`
+
+<article class="card skill">
+
+<div class="skill-top">
+<span>${escapeHTML(x[0])}</span>
+<small>${escapeHTML(x[2])}</small>
+</div>
+
+<div class="bar">
+<i style="width:${Number(x[1]) || 0}%"></i>
+</div>
+
+</article>
+
+`).join("");
+
+
+const projects =
+data.projects || defaults.projects;
+
+document.getElementById("projectsGrid").innerHTML =
+projects.map((p,i)=>`
+
+<article class="card project">
+
+<span class="project-num">
+PROJECT ${String(i+1).padStart(2,"0")}
+</span>
+
+<h3>${escapeHTML(p.name)}</h3>
+
+<p>${escapeHTML(p.desc)}</p>
+
+<div class="tags">
+
+${(p.tags || []).map(t=>
+`<span class="tag">${escapeHTML(t)}</span>`
+).join("")}
+
+</div>
+
+${p.url ?
+`<a class="project-link"
+href="${escapeHTML(p.url)}"
+target="_blank"
+rel="noopener">
+Ko‘rish ↗
+</a>`:""}
+
+</article>
+
+`).join("");
+
+
+const achievements =
+data.achievements || defaults.achievements;
+
+document.getElementById("achievementsGrid").innerHTML =
+achievements.map((x,i)=>`
+
+<article class="card achievement">
+
+<div class="icon">
+${["◈","◌","↗"][i%3]}
+</div>
+
+<h3>${escapeHTML(x[0])}</h3>
+
+<p>${escapeHTML(x[1])}</p>
+
+</article>
+
+`).join("");
+
+
+const contacts =
+data.contacts || defaults.contacts;
+
+document.getElementById("contactLinks").innerHTML =
+contacts.map(c=>`
+
+<a class="contact-link"
+href="${escapeHTML(c[2])}"
+target="${String(c[2]).startsWith("http")?"_blank":"_self"}">
+
+<strong>${escapeHTML(c[0])}</strong>
+<br>
+${escapeHTML(c[1])}
+
+</a>
+
+`).join("");
+
+}
+
+
+/* ==========================
+   CONTACT MESSAGE
+========================== */
+
+document.getElementById("contactForm").addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
-const email =
-document.getElementById("email").value;
+const name =
+document.getElementById("msgName").value.trim();
 
-const password =
-document.getElementById("password").value;
+const contact =
+document.getElementById("msgContact").value.trim();
+
+const message =
+document.getElementById("msgText").value.trim();
 
 try{
 
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+await push(ref(db,"messages"),{
 
-loginError.textContent="";
+name,
+contact,
+message,
+createdAt:Date.now()
+
+});
+
+document.getElementById("messageStatus").textContent =
+"Xabaringiz muvaffaqiyatli yuborildi.";
+
+e.target.reset();
 
 }catch(error){
 
 console.error(error);
 
-loginError.textContent =
-"Email yoki parol noto‘g‘ri.";
+document.getElementById("messageStatus").textContent =
+"Xabar yuborishda xatolik yuz berdi.";
 
 }
 
 });
 
 
-/* ==========================
-   AUTH STATE
-========================== */
+function escapeHTML(value){
 
-onAuthStateChanged(auth,(user)=>{
+return String(value ?? "")
+.replace(/[&<>"']/g,(m)=>({
 
-if(user){
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
 
-loginSection.classList.add("hidden");
-
-adminSection.classList.remove("hidden");
-
-openTab("profile");
-
-}else{
-
-loginSection.classList.remove("hidden");
-
-adminSection.classList.add("hidden");
+}[m]));
 
 }
 
-});
+document.getElementById("year").textContent =
+new Date().getFullYear();
 
+</script>
 
-/* ==========================
-   LOGOUT
-========================== */
-
-document
-.getElementById("logoutBtn")
-.addEventListener("click",()=>{
-
-signOut(auth);
-
-});
-
-
-/* ==========================
-   MENU
-========================== */
-
-document
-.querySelector(".menu")
-.addEventListener("click",(e)=>{
-
-const button =
-e.target.closest("[data-tab]");
-
-if(!button)return;
-
-openTab(button.dataset.tab);
-
-});
-
-
-/* ==========================
-   OPEN TAB
-========================== */
-
-async function openTab(tab){
-
-if(tab==="profile")
-return profilePanel();
-
-if(tab==="skills")
-return skillsPanel();
-
-if(tab==="projects")
-return projectsPanel();
-
-if(tab==="contacts")
-return contactsPanel();
-
-if(tab==="messages")
-return messagesPanel();
-
-}
-
-
-/* ==========================
-   PROFILE
-========================== */
-
-async function profilePanel(){
-
-const snap =
-await get(ref(db,"portfolio/profile"));
-
-const p =
-snap.val() || {};
-
-panel.innerHTML=`
-
-<h2>Profil</h2>
-
-<div class="field">
-<label>Ism</label>
-<input id="pName" value="${esc(p.name)}">
-</div>
-
-<div class="field">
-<label>Yuqori satr</label>
-<input id="pEyebrow" value="${esc(p.eyebrow)}">
-</div>
-
-<div class="field">
-<label>Sarlavha</label>
-<input id="pTitle" value="${esc(p.title)}">
-</div>
-
-<div class="field">
-<label>Qisqa ta’rif</label>
-<textarea id="pIntro">${esc(p.intro)}</textarea>
-</div>
-
-<div class="field">
-<label>Men haqimda 1</label>
-<textarea id="about0">${esc((p.about||[])[0]||"")}</textarea>
-</div>
-
-<div class="field">
-<label>Men haqimda 2</label>
-<textarea id="about1">${esc((p.about||[])[1]||"")}</textarea>
-</div>
-
-<div class="actions">
-
-<button class="primary" id="saveProfile">
-Saqlash
-</button>
-
-</div>
-
-<p id="saveStatus"></p>
-
-`;
-
-document
-.getElementById("saveProfile")
-.onclick=async()=>{
-
-await set(ref(db,"portfolio/profile"),{
-
-...p,
-
-name:document.getElementById("pName").value,
-
-eyebrow:
-document.getElementById("pEyebrow").value,
-
-title:
-document.getElementById("pTitle").value,
-
-intro:
-document.getElementById("pIntro").value,
-
-about:[
-document.getElementById("about0").value,
-document.getElementById("about1").value
-]
-
-});
-
-document.getElementById("saveStatus")
-.textContent="Saqlandi ✓";
-
-};
-
-}
-
-
-/* ==========================
-   SKILLS
-========================== */
-
-async function skillsPanel(){
-
-const snap =
-await get(ref(db,"portfolio/skills"));
-
-const skills =
-snap.val() || [];
-
-panel.innerHTML=`
-
-<h2>Ko‘nikmalar</h2>
-
-<p>
-Har qatorda:
-<strong>nomi | foiz | daraja</strong>
-</p>
-
-<textarea id="skillsText"></textarea>
-
-<div class="actions">
-<button class="primary" id="saveSkills">
-Saqlash
-</button>
-</div>
-
-<p id="saveStatus"></p>
-
-`;
-
-document.getElementById("skillsText").value =
-skills.map(x=>x.join(" | ")).join("\n");
-
-document.getElementById("saveSkills").onclick=async()=>{
-
-const result =
-document.getElementById("skillsText")
-.value
-.split("\n")
-.map(x=>x.trim())
-.filter(Boolean)
-.map(x=>{
-
-const a=x.split("|").map(y=>y.trim());
-
-return[
-a[0],
-Number(a[1])||0,
-a[2]||""
-];
-
-});
-
-await set(
-ref(db,"portfolio/skills"),
-result
-);
-
-document.getElementById("saveStatus")
-.textContent="Saqlandi ✓";
-
-};
-
-}
-
-
-/* ==========================
-   PROJECTS
-========================== */
-
-async function projectsPanel(){
-
-const snap =
-await get(ref(db,"portfolio/projects"));
-
-const projects =
-snap.val() || [];
-
-panel.innerHTML=`
-
-<h2>Loyihalar</h2>
-
-<p>
-Har qatorda:
-<strong>Nomi | Turi | Tavsif | Teglar | URL</strong>
-</p>
-
-<textarea id="projectsText"></textarea>
-
-<div class="actions">
-<button class="primary" id="saveProjects">
-Saqlash
-</button>
-</div>
-
-<p id="saveStatus"></p>
-
-`;
-
-document.getElementById("projectsText").value =
-projects.map(p=>[
-p.name,
-p.type,
-p.desc,
-(p.tags||[]).join(","),
-p.url||""
-].join(" | ")).join("\n");
-
-
-document.getElementById("saveProjects").onclick=async()=>{
-
-const result =
-document.getElementById("projectsText")
-.value
-.split("\n")
-.map(x=>x.trim())
-.filter(Boolean)
-.map(x=>{
-
-const a=x.split("|").map(y=>y.trim());
-
-return{
-
-name:a[0]||"",
-
-type:a[1]||"",
-
-desc:a[2]||"",
-
-tags:(a[3]||"")
-.split(",")
-.map(x=>x.trim())
-.filter(Boolean),
-
-url:a[4]||""
-
-};
-
-});
-
-await set(
-ref(db,"portfolio/projects"),
-result
-);
-
-document.getElementById("saveStatus")
-.textContent="Saqlandi ✓";
-
-};
-
-}
-
-
-/* ==========================
-   CONTACTS
-========================== */
-
-async function contactsPanel(){
-
-const snap =
-await get(ref(db,"portfolio/contacts"));
-
-const contacts =
-snap.val() || [];
-
-panel.innerHTML=`
-
-<h2>Aloqa</h2>
-
-<p>
-Har qatorda:
-<strong>Nomi | Ko‘rsatiladigan qiymat | Link</strong>
-</p>
-
-<textarea id="contactsText"></textarea>
-
-<div class="actions">
-<button class="primary" id="saveContacts">
+</body>
+   </html>ass="primary" id="saveContacts">
 Saqlash
 </button>
 </div>
