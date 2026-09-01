@@ -26,10 +26,9 @@ h1{font-size:20px;margin:0;font-weight:800}
 .card h2{font-size:16px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);color:var(--brand)}
 
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
 .field label{font-size:12px;font-weight:700;color:var(--muted)}
-.field input,.field textarea,.field select{border:1px solid var(--line);border-radius:6px;padding:8px 10px;outline:none;background:#fff;font-size:13px}
+.field input,.field textarea{border:1px solid var(--line);border-radius:6px;padding:8px 10px;outline:none;background:#fff;font-size:13px}
 .field textarea{min-height:80px;resize:vertical}
 .field input:focus,.field textarea:focus{border-color:var(--brand)}
 
@@ -40,7 +39,7 @@ h1{font-size:20px;margin:0;font-weight:800}
 .toast{position:fixed;left:20px;bottom:20px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;transition:.3s;transform:translateY(20px);z-index:1000}
 .toast.show{opacity:1;transform:translateY(0)}
 
-@media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr}}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -56,54 +55,48 @@ h1{font-size:20px;margin:0;font-weight:800}
 
 <main class="container">
   
-  <!-- PROFIL -->
   <section class="card">
     <h2>1. Profil Ma'lumotlari</h2>
     <div class="grid-2">
       <div class="field"><label>F.I.SH (Ism Sharif)</label><input id="pName"></div>
       <div class="field"><label>Sarlavha Osti (Eyebrow)</label><input id="pEyebrow"></div>
     </div>
-    <div class="field"><label>Bosh Sarlavha (HTML ruxsat etiladi &lt;br&gt;)</label><input id="pTitle"></div>
+    <div class="field"><label>Bosh Sarlavha (HTML &lt;br&gt; ruxsat etiladi)</label><input id="pTitle"></div>
     <div class="field"><label>Qisqa Intro</label><textarea id="pIntro"></textarea></div>
-    <div class="field"><label>Men Haqimda (Xatboshilar yangi qatorda)</label><textarea id="pAbout" rows="4"></textarea></div>
+    <div class="field"><label>Men Haqimda (Xatboshilar orasida 2 ta Enter)</label><textarea id="pAbout" rows="4"></textarea></div>
     
     <div class="field">
-      <label>Profil Rasmi (Fayl tanlang)</label>
+      <label>Profil Rasmi</label>
       <input type="file" id="pImageFile" accept="image/*">
     </div>
 
-    <h3>Faktlar (Ma'lumotlar)</h3>
+    <h3>Faktlar</h3>
     <div id="factsContainer"></div>
     <button class="btn btn-sm" onclick="addFact()">+ Fakt qo'shish</button>
   </section>
 
-  <!-- STATISTIKA -->
   <section class="card">
     <h2>2. Statistika</h2>
     <div id="statsContainer" class="grid-2"></div>
   </section>
 
-  <!-- KO'NIKMALAR -->
   <section class="card">
     <h2>3. Ko'nikmalar (Skills)</h2>
     <div id="skillsContainer"></div>
   </section>
 
-  <!-- LOYIHALAR -->
   <section class="card">
-    <h2>4. Loyihalar (Portfolio)</h2>
+    <h2>4. Loyihalar</h2>
     <div id="projectsContainer"></div>
     <button class="btn btn-sm" onclick="addProject()" style="margin-top:10px">+ Yangi loyiha</button>
   </section>
 
-  <!-- YUTUQLAR / TA'LIM -->
   <section class="card">
     <h2>5. Ta'lim va Faoliyat</h2>
     <div id="achievementsContainer"></div>
     <button class="btn btn-sm" onclick="addAchievement()" style="margin-top:10px">+ Yangi yo'nalish</button>
   </section>
 
-  <!-- ALOQA -->
   <section class="card">
     <h2>6. Aloqa Tarmoqlari</h2>
     <div id="contactsContainer"></div>
@@ -122,16 +115,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/fireba
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 const firebaseConfig = { databaseURL: "https://biu-e54d1-default-rtdb.asia-southeast1.firebasedatabase.app/" };
-const FIREBASE_READY = Object.values(firebaseConfig).every(v => v && !String(v).startsWith("YOUR_"));
-
-let firebaseApp = null, rtdb = null, portfolioRef = null;
-if (FIREBASE_READY) {
-  firebaseApp = initializeApp(firebaseConfig);
-  rtdb = getDatabase(firebaseApp);
-  portfolioRef = ref(rtdb, "portfolio");
-}
-
 const LOCAL_STORAGE_KEY = "salohiddin-portfolio-v3-local";
+
+let portfolioRef = null;
 let currentData = {};
 
 const defaults = {
@@ -152,17 +138,21 @@ const defaults = {
 };
 
 async function initAdmin() {
-  let loaded = null;
-  if(FIREBASE_READY) {
-    try {
-      const snap = await get(portfolioRef);
-      if(snap.exists()) loaded = snap.val();
-    } catch(e) { console.error(e); }
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const rtdb = getDatabase(firebaseApp);
+    portfolioRef = ref(rtdb, "portfolio");
+    const snap = await get(portfolioRef);
+    if(snap.exists()) currentData = snap.val();
+  } catch(e) { 
+    console.warn("Firebase ulanmadi, kompyuter xotirasidan olinadi."); 
   }
-  if(!loaded) {
-    try { loaded = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)); } catch(e){}
+  
+  if(!currentData || !Object.keys(currentData).length) {
+    try { currentData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)); } catch(e){}
   }
-  currentData = loaded || defaults;
+  
+  currentData = currentData || defaults;
   renderForm();
 }
 
@@ -174,7 +164,6 @@ function renderForm() {
   document.getElementById("pIntro").value = p.intro || "";
   document.getElementById("pAbout").value = (p.about || []).join("\n\n");
 
-  // Facts
   const factsBox = document.getElementById("factsContainer");
   factsBox.innerHTML = "";
   (p.facts || []).forEach(([k, v], i) => {
@@ -186,7 +175,6 @@ function renderForm() {
       </div>`;
   });
 
-  // Stats
   const statsBox = document.getElementById("statsContainer");
   statsBox.innerHTML = "";
   (currentData.stats || []).forEach(([a, b], i) => {
@@ -197,7 +185,6 @@ function renderForm() {
       </div>`;
   });
 
-  // Skills
   const skillsBox = document.getElementById("skillsContainer");
   skillsBox.innerHTML = "";
   (currentData.skills || []).forEach((g, gi) => {
@@ -218,7 +205,6 @@ function renderForm() {
       </div>`;
   });
 
-  // Projects
   const projBox = document.getElementById("projectsContainer");
   projBox.innerHTML = "";
   (currentData.projects || []).forEach((p, i) => {
@@ -237,7 +223,6 @@ function renderForm() {
       </div>`;
   });
 
-  // Achievements
   const achBox = document.getElementById("achievementsContainer");
   achBox.innerHTML = "";
   (currentData.achievements || []).forEach(([t, d], i) => {
@@ -249,7 +234,6 @@ function renderForm() {
       </div>`;
   });
 
-  // Contacts
   const contBox = document.getElementById("contactsContainer");
   contBox.innerHTML = "";
   (currentData.contacts || []).forEach(([label, val, link], i) => {
@@ -264,7 +248,6 @@ function renderForm() {
 
 function esc(s){return String(s??"").replace(/"/g, "&quot;")}
 
-// Event Handlers / Actions
 window.addFact = () => { currentData.profile.facts.push(["Yangi kalit", "Qiymat"]); renderForm(); };
 window.removeFact = (i) => { currentData.profile.facts.splice(i, 1); renderForm(); };
 window.addSkillItem = (gi) => { currentData.skills[gi].items.push(["Yangi", 50, "O'rganilmoqda"]); renderForm(); };
@@ -274,41 +257,38 @@ window.removeProject = (i) => { currentData.projects.splice(i, 1); renderForm();
 window.addAchievement = () => { currentData.achievements.push(["Sarlavha", "Tavsif"]); renderForm(); };
 window.removeAchievement = (i) => { currentData.achievements.splice(i, 1); renderForm(); };
 
-// Process Image file input
 document.getElementById("pImageFile").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if(file) {
     const reader = new FileReader();
     reader.onload = (evt) => {
       currentData.profile.image = evt.target.result;
-      toast("Rasm tanlandi! 'Saqlash' tugmasini bosing.");
+      toast("Rasm yuklandi! 'Saqlash' tugmasini bosing.");
     };
     reader.readAsDataURL(file);
   }
 });
 
-// Save Data
 window.saveData = async () => {
-  // Collect top fields
   currentData.profile.name = document.getElementById("pName").value;
   currentData.profile.eyebrow = document.getElementById("pEyebrow").value;
   currentData.profile.title = document.getElementById("pTitle").value;
   currentData.profile.intro = document.getElementById("pIntro").value;
   currentData.profile.about = document.getElementById("pAbout").value.split("\n\n").filter(Boolean);
 
-  try {
-    // LocalStorage
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentData));
-    
-    // Firebase
-    if(FIREBASE_READY) {
+  // Har doim kompyuter xotirasiga saqlash
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentData));
+
+  // Firebase bazasiga yozishga urinib ko'radi
+  if(portfolioRef) {
+    try {
       await set(portfolioRef, currentData);
+    } catch(e) {
+      console.warn("Firebase-ga yozilmadi, ma'lumot faqat mahaliydan olindi.");
     }
-    toast("O'zgarishlar muvaffaqiyatli saqlandi!");
-  } catch(e) {
-    console.error(e);
-    toast("Xatolik yuz berdi saqlashda!");
   }
+  
+  toast("O'zgarishlar saqlandi! Saytga o'tishingiz mumkin.");
 };
 
 function toast(msg){
