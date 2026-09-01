@@ -640,6 +640,2192 @@ section{
   padding-top:22px;
 }
 
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#101828;
+  color:#fff;
+  padding:13px 16px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  font-size:13px;
+  transform:translateY(120px);
+  opacity:0;
+  transition:.25s;
+  z-index:100;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.firebase-status{
+  position:fixed;
+  left:20px;
+  bottom:20px;
+  z-index:90;
+  padding:9px 12px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--line);
+  font-size:11px;
+  color:var(--muted);
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+.firebase-status.online{
+  color:#067647;
+}
+
+.firebase-status.error{
+  color:#b42318;
+}
+
+@media(max-width:900px){
+
+  .hero-grid,
+  .about-grid,
+  .contact-wrap{
+    grid-template-columns:1fr;
+  }
+
+  .profile-card{
+    max-width:430px;
+  }
+
+  .skills{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .section-head{
+    grid-template-columns:1fr;
+  }
+
+  .section-note{
+    max-width:600px;
+  }
+}
+
+@media(max-width:680px){
+
+  .navlinks{
+    display:none;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .mobile-nav.open{
+    display:grid;
+  }
+
+  .mobile-nav{
+    position:absolute;
+    top:78px;
+    left:0;
+    right:0;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    padding:16px 20px;
+    gap:14px;
+    box-shadow:var(--shadow);
+  }
+
+  .mobile-nav a{
+    font-weight:700;
+    color:#475467;
+  }
+
+  .hero{
+    padding:60px 0;
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat:nth-child(2){
+    border-right:0;
+  }
+
+  .stats{
+    padding:20px 0;
+  }
+
+  .skills,
+  .projects,
+  .achievements{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .section-head{
+    margin-bottom:28px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topline"></div>
+
+<header class="header">
+
+  <div class="container nav">
+
+    <a class="brand" href="#top">
+
+      <div class="brand-mark">TS</div>
+
+      <div>
+        <strong id="brandName">
+          Teshaboyev Salohiddin
+        </strong>
+
+        <span>
+          Portfolio · Technology & Projects
+        </span>
+      </div>
+
+    </a>
+
+    <nav class="navlinks">
+
+      <a href="#about">Men haqimda</a>
+      <a href="#skills">Ko'nikmalar</a>
+      <a href="#projects">Loyihalar</a>
+      <a href="#contact">Bog'lanish</a>
+
+    </nav>
+
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      aria-label="Menyu">
+      ☰
+    </button>
+
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+
+    <a href="#about">Men haqda</a>
+    <a href="#skills">Ko'nikmalar</a>
+    <a href="#projects">Loyihalar</a>
+    <a href="#contact">Bog'lanish</a>
+
+  </nav>
+
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container hero-grid">
+
+      <div>
+
+        <div
+          class="eyebrow"
+          id="heroEyebrow">
+          Young Developer · Uzbekistan
+        </div>
+
+        <h1 id="heroTitle">
+          Teshaboyev<br>
+          Salohiddin
+        </h1>
+
+        <p id="heroText">
+          Python, C++ va web texnologiyalari bilan
+          ishlovchi yosh dasturchi. Robototexnika,
+          Telegram botlar va amaliy raqamli mahsulotlar
+          ustida ishlayman.
+        </p>
+
+        <div class="hero-actions">
+
+          <a
+            class="btn btn-primary"
+            href="#projects">
+            Loyihalarni ko'rish <span>↗</span>
+          </a>
+
+          <a
+            class="btn btn-light"
+            href="#contact">
+            Bog'lanish
+          </a>
+
+        </div>
+
+      </div>
+
+      <aside class="profile-card">
+
+        <img
+          id="profileImage"
+          alt="Teshaboyev Salohiddin">
+
+        <div class="profile-caption">
+
+          <span id="profileCaption">
+            Teshaboyev Salohiddin
+          </span>
+
+          <span class="status">
+            <i class="dot"></i>
+            Faol
+          </span>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div
+      class="container stat-grid"
+      id="stats">
+    </div>
+
+  </div>
+
+  <!-- ABOUT -->
+
+  <section id="about">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-kicker">
+            01 · Profil
+          </div>
+
+          <h2 class="section-title">
+            Men haqimda
+          </h2>
+
+        </div>
+
+        <p class="section-note">
+          Qisqa, aniq va professional profil —
+          texnologiyaga qiziqish hamda amaliy
+          yo'nalishlarni jamlaydi.
+        </p>
+
+      </div>
+
+      <div class="about-grid">
+
+        <div
+          class="prose"
+          id="aboutText">
+        </div>
+
+        <div
+          class="info-card"
+          id="facts">
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+
+  <section
+    id="skills"
+    class="soft">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-kicker">
+            02 · Kompetensiyalar
+          </div>
+
+          <h2 class="section-title">
+            Bilim va ko'nikmalar
+          </h2>
+
+        </div>
+
+        <p class="section-note">
+          Asosiy texnologiyalar va hozir
+          rivojlantirilayotgan yo'nalishlar.
+        </p>
+
+      </div>
+
+      <div
+        class="skill-groups"
+        id="skillGroups">
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section id="projects">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-kicker">
+            03 · Portfolio
+          </div>
+
+          <h2 class="section-title">
+            Tanlangan loyihalar
+          </h2>
+
+        </div>
+
+        <p class="section-note">
+          Amaliy muammolar uchun yaratilgan
+          botlar, web-ilovalar va raqamli tizimlar.
+        </p>
+
+      </div>
+
+      <div
+        class="projects"
+        id="projectsGrid">
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+
+  <section
+    class="soft"
+    id="achievements">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="section-kicker">
+            04 · Faoliyat
+          </div>
+
+          <h2 class="section-title">
+            Ta'lim va yo'nalishlar
+          </h2>
+
+        </div>
+
+        <p class="section-note">
+          Texnik ta'lim, mustaqil izlanish
+          va amaliy mashg'ulotlar.
+        </p>
+
+      </div>
+
+      <div
+        class="achievements"
+        id="achievementsGrid">
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contact">
+
+    <div class="container">
+
+      <div class="contact-wrap">
+
+        <div class="contact-panel">
+
+          <div
+            class="section-kicker"
+            style="color:#5eead4">
+            05 · Aloqa
+          </div>
+
+          <h2>
+            Hamkorlik va yangi loyihalar
+            uchun ochiqman.
+          </h2>
+
+          <p>
+            Texnologiya, ta'lim yoki yangi loyiha
+            haqida gaplashmoqchi bo'lsangiz,
+            qulay aloqa kanalini tanlang.
+          </p>
+
+          <div
+            class="contact-links"
+            id="contactLinks">
+          </div>
+
+        </div>
+
+        <form
+          class="card contact-form"
+          id="contactForm">
+
+          <div class="section-kicker">
+            Xabar yuborish
+          </div>
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label>Ism</label>
+
+              <input
+                id="msgName"
+                required
+                maxlength="80"
+                placeholder="Ismingiz">
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Telefon yoki Telegram
+              </label>
+
+              <input
+                id="msgContact"
+                required
+                maxlength="100"
+                placeholder="@username yoki +998 ...">
+
+            </div>
+
+            <div class="field full">
+
+              <label>Xabar</label>
+
+              <textarea
+                id="msgText"
+                required
+                maxlength="1500"
+                placeholder="Xabaringizni yozing...">
+              </textarea>
+
+            </div>
+
+          </div>
+
+          <div class="hero-actions">
+
+            <button
+              class="btn btn-primary"
+              type="submit">
+              Xabarni yuborish
+            </button>
+
+          </div>
+
+          <p class="hint">
+            Xabar Firebase Realtime Database'ga
+            real vaqtda saqlanadi.
+          </p>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+
+  <div class="container footer-inner">
+
+    <span id="copyright">
+      © 2026 Teshaboyev Salohiddin
+    </span>
+
+    <span>
+      Professional portfolio · Built with care
+    </span>
+
+  </div>
+
+</footer>
+
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+<div
+  id="firebaseStatus"
+  class="firebase-status">
+  Firebase ulanmoqda...
+</div>
+
+
+<!-- ======================================================
+     FIREBASE — PUBLIC (READ-ONLY + CONTACT FORM)
+====================================================== -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  set,
+  get,
+  onValue,
+  push
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/*
+===========================================================
+  FIREBASE CONFIG
+
+  MUHIM:
+  Quyidagi qiymatlarni Firebase Console'dagi
+  Project settings → Your apps → Web app
+  joyidan olasan. admin.html faylidagi config
+  bilan bir xil bo'lishi kerak.
+===========================================================
+*/
+
+const firebaseConfig = {
+
+  apiKey: "BU_YERGA_API_KEY",
+
+  authDomain:
+    "biu-e54d1.firebaseapp.com",
+
+  databaseURL:
+    "https://biu-e54d1-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+  projectId:
+    "biu-e54d1",
+
+  storageBucket:
+    "biu-e54d1.firebasestorage.app",
+
+  messagingSenderId:
+    "BU_YERGA_MESSAGING_SENDER_ID",
+
+  appId:
+    "BU_YERGA_APP_ID"
+
+};
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const db =
+  getDatabase(firebaseApp);
+
+const portfolioRef =
+  ref(db, "portfolio");
+
+const messagesRef =
+  ref(db, "messages");
+
+
+const defaults = {
+
+  profile: {
+
+    name:
+      "Teshaboyev Salohiddin",
+
+    eyebrow:
+      "Young Developer · Uzbekistan",
+
+    title:
+      "Teshaboyev<br>Salohiddin",
+
+    intro:
+      "Python, C++ va web texnologiyalari bilan ishlovchi yosh dasturchi. Robototexnika, Telegram botlar va amaliy raqamli mahsulotlar ustida ishlayman.",
+
+    about: [
+
+      "Men Teshaboyev Salohiddin — dasturlash va texnologiyalarga qiziquvchi o'quvchiman. Hozirda robototexnika yo'nalishida bilim olib, Python, C++ va web texnologiyalari asosida amaliy loyihalar ustida ishlayman.",
+
+      "Mening asosiy qiziqishlarim — dasturlash, Telegram botlar, web-ilovalar va elektronika. Maqsadim bilim va tajribani real muammolarni hal qiladigan loyihalarga aylantirish hamda kelajakda yirik texnologik tashabbuslarda ishtirok etish."
+
+    ],
+
+    facts: [
+
+      [
+        "Ism",
+        "Teshaboyev Salohiddin"
+      ],
+
+      [
+        "Maktab",
+        "10-IDUM"
+      ],
+
+      [
+        "Yo'nalish",
+        "Robototexnika"
+      ],
+
+      [
+        "Tillar",
+        "O'zbek, Nemis"
+      ],
+
+      [
+        "Hudud",
+        "O'zbekiston"
+      ]
+
+    ],
+
+    image:
+      ""
+
+  },
+
+  stats: [
+
+    [
+      "Python",
+      "Asosiy yo'nalish"
+    ],
+
+    [
+      "Web",
+      "Amaliy loyihalar"
+    ],
+
+    [
+      "3+",
+      "Portfolio loyihasi"
+    ],
+
+    [
+      "Robotics",
+      "Doimiy o'rganish"
+    ]
+
+  ],
+
+  skills: [
+
+    {
+
+      group:
+        "Dasturlash tillari",
+
+      items: [
+
+        [
+          "Python",
+          85,
+          "Asosiy"
+        ],
+
+        [
+          "C++",
+          55,
+          "O'rganilmoqda"
+        ],
+
+        [
+          "JavaScript",
+          55,
+          "O'rganilmoqda"
+        ]
+
+      ]
+
+    },
+
+    {
+
+      group:
+        "Web texnologiyalari",
+
+      items: [
+
+        [
+          "HTML",
+          85,
+          "Yaxshi"
+        ],
+
+        [
+          "CSS",
+          80,
+          "Yaxshi"
+        ],
+
+        [
+          "Web UI",
+          75,
+          "Amaliy"
+        ]
+
+      ]
+
+    },
+
+    {
+
+      group:
+        "Qo'shimcha vositalar",
+
+      items: [
+
+        [
+          "Robototexnika",
+          70,
+          "Rivojlanmoqda"
+        ],
+
+        [
+          "Video tahrirlash",
+          70,
+          "Yaxshi"
+        ],
+
+        [
+          "Photopea",
+          70,
+          "Yaxshi"
+        ]
+
+      ]
+
+    }
+
+  ],
+
+  projects: [
+
+    {
+
+      name:
+        "Tuxum Market Bot",
+
+      type:
+        "Telegram Bot",
+
+      desc:
+        "Tuxum sotish jarayonini soddalashtirish uchun yaratilgan Telegram bot. Buyurtmalarni qabul qilish, mahsulotlar ro'yxati va boshqaruv funksiyalarini o'z ichiga oladi.",
+
+      tags:
+        [
+          "Python",
+          "Telegram",
+          "Automation"
+        ],
+
+      url:
+        "https://t.me/txum_bot"
+
+    },
+
+    {
+
+      name:
+        "Lazzat CRM",
+
+      type:
+        "Oshxona CRM",
+
+      desc:
+        "Restoran uchun raqamli menyu va CRM konsepti. Mijoz, xodim va admin jarayonlarini yagona raqamli tajribaga birlashtirishga qaratilgan.",
+
+      tags:
+        [
+          "Web",
+          "CRM",
+          "QR"
+        ],
+
+      url:
+        "https://remix-oshxona.ai.studio"
+
+    },
+
+    {
+
+      name:
+        "Sprachwerk",
+
+      type:
+        "Language Platform",
+
+      desc:
+        "Nemis tilini grammatika, lug'at va video materiallar orqali o'rganishga yordam beruvchi web platforma konsepti.",
+
+      tags:
+        [
+          "Education",
+          "Web",
+          "AI"
+        ],
+
+      url:
+        "https://deutsch-kw9mqyja3-dasturlashcurssalohiddin-collabs-projects.vercel.app/"
+
+    }
+
+  ],
+
+  achievements: [
+
+    [
+      "10-IDUM",
+      "Ixtisoslashtirilgan davlat umumta'lim maktabida ta'lim"
+    ],
+
+    [
+      "Robototexnika",
+      "ESP32 va sensorlar bilan amaliy mashg'ulotlar"
+    ],
+
+    [
+      "Deutschsmart School",
+      "Nemis tili bo'yicha qo'shimcha ta'lim"
+    ]
+
+  ],
+
+  contacts: [
+
+    [
+      "Telefon",
+      "+998 95 100 01 30",
+      "tel:+998951000130"
+    ],
+
+    [
+      "Telegram",
+      "@salohiddinTm",
+      "https://t.me/salohiddinTm"
+    ],
+
+    [
+      "Telegram Bot",
+      "@txum_bot",
+      "https://t.me/txum_bot"
+    ],
+
+    [
+      "GitHub",
+      "dasturlashcurssalohiddin-collab",
+      "https://github.com/dasturlashcurssalohiddin-collab"
+    ]
+
+  ]
+
+};
+
+
+let data =
+  structuredClone(defaults);
+
+let realtimeStarted =
+  false;
+
+
+function clone(obj){
+
+  return JSON.parse(
+    JSON.stringify(obj)
+  );
+
+}
+
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      char => ({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[char])
+    );
+
+}
+
+
+function toast(message){
+
+  const element =
+    document.getElementById("toast");
+
+  element.textContent =
+    message;
+
+  element.classList.add("show");
+
+  clearTimeout(
+    window.__toast
+  );
+
+  window.__toast =
+    setTimeout(
+      () =>
+        element.classList.remove("show"),
+      2400
+    );
+
+}
+
+
+function firebaseStatus(
+  text,
+  type=""
+){
+
+  const element =
+    document.getElementById(
+      "firebaseStatus"
+    );
+
+  element.textContent =
+    text;
+
+  element.className =
+    "firebase-status " + type;
+
+}
+
+
+async function loadInitialData(){
+
+  try{
+
+    const snapshot =
+      await get(
+        portfolioRef
+      );
+
+    if(
+      snapshot.exists()
+    ){
+
+      const remote =
+        snapshot.val();
+
+      data = {
+
+        ...clone(defaults),
+        ...remote
+
+      };
+
+    }
+
+    else{
+
+      await set(
+        portfolioRef,
+        data
+      );
+
+    }
+
+    renderPublic();
+
+    firebaseStatus(
+      "● Firebase online",
+      "online"
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    firebaseStatus(
+      "● Firebase ulanish xatosi",
+      "error"
+    );
+
+    renderPublic();
+
+  }
+
+}
+
+
+function startRealtime(){
+
+  if(
+    realtimeStarted
+  ){
+
+    return;
+
+  }
+
+  realtimeStarted =
+    true;
+
+  onValue(
+    portfolioRef,
+    snapshot => {
+
+      if(
+        snapshot.exists()
+      ){
+
+        data = {
+
+          ...clone(defaults),
+          ...snapshot.val()
+
+        };
+
+        renderPublic();
+
+      }
+
+    },
+
+    error => {
+
+      console.error(error);
+
+      firebaseStatus(
+        "● Firebase xatosi",
+        "error"
+      );
+
+    }
+
+  );
+
+}
+
+
+function renderPublic(){
+
+  document.getElementById(
+    "brandName"
+  ).textContent =
+    data.profile?.name ||
+    defaults.profile.name;
+
+
+  document.getElementById(
+    "heroEyebrow"
+  ).textContent =
+    data.profile?.eyebrow ||
+    "";
+
+
+  document.getElementById(
+    "heroTitle"
+  ).innerHTML =
+    data.profile?.title ||
+    "";
+
+
+  document.getElementById(
+    "heroText"
+  ).textContent =
+    data.profile?.intro ||
+    "";
+
+
+  const profileImage =
+    document.getElementById(
+      "profileImage"
+    );
+
+  if(
+    data.profile?.image
+  ){
+
+    profileImage.src =
+      data.profile.image;
+
+  }
+
+
+  document.getElementById(
+    "profileCaption"
+  ).textContent =
+    data.profile?.name ||
+    "";
+
+
+  document.getElementById(
+    "aboutText"
+  ).innerHTML =
+    (data.profile?.about || [])
+      .map(
+        paragraph =>
+          `<p>${esc(paragraph)}</p>`
+      )
+      .join("");
+
+
+  document.getElementById(
+    "facts"
+  ).innerHTML =
+    (data.profile?.facts || [])
+      .map(
+        ([key,value]) =>
+
+          `<div class="info-row">
+            <span>${esc(key)}</span>
+            <span>${esc(value)}</span>
+          </div>`
+      )
+      .join("");
+
+
+  document.getElementById(
+    "stats"
+  ).innerHTML =
+    (data.stats || [])
+      .map(
+        ([a,b]) =>
+
+          `<div class="stat">
+            <strong>${esc(a)}</strong>
+            <span>${esc(b)}</span>
+          </div>`
+      )
+      .join("");
+
+
+  document.getElementById(
+    "skillGroups"
+  ).innerHTML =
+    (data.skills || [])
+      .map(
+
+        group => `
+
+          <div class="skill-group">
+
+            <h3>
+              ${esc(group.group)}
+            </h3>
+
+            <div class="skills">
+
+              ${(group.items || [])
+                .map(
+
+                  ([name,level,status]) => `
+
+                    <article
+                      class="card skill">
+
+                      <div class="skill-top">
+
+                        <span>
+                          ${esc(name)}
+                        </span>
+
+                        <small>
+                          ${esc(status)}
+                        </small>
+
+                      </div>
+
+                      <div class="bar">
+
+                        <i
+                          style="width:${Math.max(
+                            0,
+                            Math.min(
+                              100,
+                              Number(level) || 0
+                            )
+                          )}%">
+                        </i>
+
+                      </div>
+
+                    </article>
+
+                  `
+                )
+                .join("")}
+
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+
+  document.getElementById(
+    "projectsGrid"
+  ).innerHTML =
+    (data.projects || [])
+      .map(
+
+        (project,index) => `
+
+          <article
+            class="card project">
+
+            <span class="project-num">
+              PROJECT ${String(index + 1).padStart(2,"0")}
+            </span>
+
+            <h3>
+              ${esc(project.name)}
+            </h3>
+
+            <p>
+              ${esc(project.desc)}
+            </p>
+
+            <div class="tags">
+
+              ${(project.tags || [])
+                .map(
+                  tag =>
+                    `<span class="tag">
+                      ${esc(tag)}
+                    </span>`
+                )
+                .join("")}
+
+            </div>
+
+            <div class="project-links">
+
+              <span>
+                ${esc(project.type)}
+              </span>
+
+              ${
+                project.url
+                  ?
+                  `<a
+                    href="${esc(project.url)}"
+                    target="_blank"
+                    rel="noopener">
+                    Ko'rish ↗
+                  </a>`
+                  :
+                  ""
+              }
+
+            </div>
+
+          </article>
+
+        `
+      )
+      .join("");
+
+
+  document.getElementById(
+    "achievementsGrid"
+  ).innerHTML =
+    (data.achievements || [])
+      .map(
+
+        (achievement,index) => `
+
+          <article
+            class="card achievement">
+
+            <div class="achievement-icon">
+              ${["◈","◌","↗"][index % 3]}
+            </div>
+
+            <h3>
+              ${esc(achievement[0])}
+            </h3>
+
+            <p>
+              ${esc(achievement[1])}
+            </p>
+
+          </article>
+
+        `
+      )
+      .join("");
+
+
+  document.getElementById(
+    "contactLinks"
+  ).innerHTML =
+    (data.contacts || [])
+      .map(
+
+        contact => `
+
+          <a
+            class="contact-link"
+            href="${esc(contact[2])}"
+            target="${
+              String(contact[2])
+                .startsWith("http")
+                ? "_blank"
+                : "_self"
+            }">
+
+            <strong>
+              ${esc(contact[0])}
+            </strong>
+
+            <br>
+
+            ${esc(contact[1])}
+
+          </a>
+
+        `
+      )
+      .join("");
+
+
+  document.getElementById(
+    "copyright"
+  ).textContent =
+    `© ${new Date().getFullYear()} ${
+      data.profile?.name || ""
+    }`;
+
+}
+
+
+/*
+===========================================================
+  MOBILE MENU
+===========================================================
+*/
+
+document.getElementById(
+  "menuBtn"
+).onclick = () => {
+
+  document.getElementById(
+    "mobileNav"
+  ).classList.toggle(
+    "open"
+  );
+
+};
+
+
+document
+  .querySelectorAll(
+    "#mobileNav a"
+  )
+  .forEach(
+
+    link => {
+
+      link.onclick = () => {
+
+        document
+          .getElementById(
+            "mobileNav"
+          )
+          .classList.remove(
+            "open"
+          );
+
+      };
+
+    }
+
+  );
+
+
+/*
+===========================================================
+  CONTACT FORM → REALTIME DATABASE
+===========================================================
+*/
+
+document.getElementById(
+  "contactForm"
+).addEventListener(
+
+  "submit",
+
+  async event => {
+
+    event.preventDefault();
+
+    const name =
+      document
+        .getElementById("msgName")
+        .value
+        .trim();
+
+    const contact =
+      document
+        .getElementById("msgContact")
+        .value
+        .trim();
+
+    const message =
+      document
+        .getElementById("msgText")
+        .value
+        .trim();
+
+
+    if(
+      !name ||
+      !contact ||
+      !message
+    ){
+
+      toast(
+        "Barcha maydonlarni to'ldiring"
+      );
+
+      return;
+
+    }
+
+
+    try{
+
+      const messageRef =
+        push(messagesRef);
+
+      await set(
+        messageRef,
+        {
+
+          name,
+          contact,
+          message,
+
+          createdAt:
+            Date.now(),
+
+          read:
+            false
+
+        }
+      );
+
+
+      document.getElementById(
+        "contactForm"
+      ).reset();
+
+
+      toast(
+        "Xabaringiz yuborildi"
+      );
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+      toast(
+        "Xabar yuborilmadi"
+      );
+
+    }
+
+  }
+
+);
+
+
+/*
+===========================================================
+  START
+===========================================================
+*/
+
+await loadInitialData();
+
+startRealtime();
+
+renderPublic();
+
+</script>
+
+</body>
+</html>
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,
+  BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.6;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(calc(100% - 40px),var(--max));
+  margin:auto;
+}
+
+.topline{
+  height:4px;
+  background:linear-gradient(
+    90deg,
+    var(--brand),
+    #159f93,
+    #d08a2d
+  );
+}
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(255,255,255,.90);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(16,24,40,.07);
+}
+
+.nav{
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-mark{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--ink);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  letter-spacing:-.08em;
+}
+
+.brand strong{
+  display:block;
+  font-size:14px;
+  letter-spacing:-.01em;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:1px;
+}
+
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  color:#475467;
+  font-size:14px;
+  font-weight:600;
+}
+
+.navlinks a:hover{
+  color:var(--brand);
+}
+
+.menu-btn{
+  display:none;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 10px;
+}
+
+.hero{
+  padding:90px 0 72px;
+  background:linear-gradient(
+    180deg,
+    #fff 0%,
+    #f8fbfa 100%
+  );
+  border-bottom:1px solid var(--line);
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.35fr .65fr;
+  gap:60px;
+  align-items:center;
+}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:var(--brand);
+  font-weight:800;
+  font-size:12px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+.eyebrow:before{
+  content:"";
+  width:32px;
+  height:2px;
+  background:var(--brand);
+}
+
+h1{
+  font-size:clamp(46px,7vw,78px);
+  line-height:.98;
+  letter-spacing:-.06em;
+  margin:20px 0 24px;
+  max-width:820px;
+}
+
+.hero p{
+  font-size:18px;
+  color:#475467;
+  max-width:650px;
+  margin:0;
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+.btn{
+  border-radius:12px;
+  padding:13px 18px;
+  border:1px solid var(--line);
+  font-weight:750;
+  font-size:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(16,24,40,.18);
+}
+
+.btn-light{
+  background:#fff;
+}
+
+.btn-light:hover{
+  border-color:#98a2b3;
+  background:#fafafa;
+}
+
+.profile-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+
+.profile-card img{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:20px;
+  background:#eef1f2;
+}
+
+.profile-caption{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  padding:14px 4px 4px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#16a34a;
+}
+
+.stats{
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+  background:#fff;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.stat{
+  padding:8px 0;
+  border-right:1px solid var(--line);
+}
+
+.stat:last-child{
+  border:0;
+}
+
+.stat strong{
+  display:block;
+  font-size:24px;
+  letter-spacing:-.04em;
+}
+
+.stat span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+section{
+  padding:92px 0;
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:30px;
+  align-items:end;
+  margin-bottom:42px;
+}
+
+.section-kicker{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin-bottom:8px;
+}
+
+.section-title{
+  font-size:clamp(30px,4vw,48px);
+  letter-spacing:-.045em;
+  line-height:1.05;
+  margin:0;
+}
+
+.section-note{
+  max-width:360px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:28px;
+}
+
+.prose{
+  font-size:18px;
+  color:#344054;
+}
+
+.prose p:first-child{
+  margin-top:0;
+}
+
+.info-card,
+.card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#fff;
+}
+
+.info-row{
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-size:14px;
+}
+
+.info-row:last-child{
+  border:0;
+}
+
+.info-row span:first-child{
+  color:var(--muted);
+}
+
+.info-row span:last-child{
+  text-align:right;
+  font-weight:700;
+}
+
+.soft{
+  background:var(--soft);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.skill-groups{
+  display:grid;
+  gap:26px;
+}
+
+.skill-group h3{
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 12px;
+}
+
+.skills{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.skill{
+  padding:20px;
+}
+
+.skill-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:14px;
+  font-weight:800;
+}
+
+.skill small{
+  color:var(--muted);
+  font-weight:600;
+}
+
+.bar{
+  height:5px;
+  background:#edf0f2;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:16px;
+}
+
+.bar i{
+  display:block;
+  height:100%;
+  background:var(--brand);
+  border-radius:inherit;
+}
+
+.projects{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.project{
+  padding:28px;
+  min-height:290px;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+
+.project:before{
+  content:"";
+  position:absolute;
+  right:-55px;
+  top:-55px;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:rgba(15,118,110,.06);
+}
+
+.project-num{
+  font-size:12px;
+  color:var(--brand);
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+.project h3{
+  font-size:26px;
+  letter-spacing:-.04em;
+  margin:22px 0 10px;
+}
+
+.project p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px;
+}
+
+.tag{
+  padding:6px 9px;
+  border-radius:99px;
+  background:var(--soft);
+  font-size:11px;
+  font-weight:700;
+  color:#475467;
+}
+
+.project-links{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:auto;
+  padding-top:24px;
+}
+
+.project-links a{
+  font-size:13px;
+  font-weight:800;
+  color:var(--brand);
+}
+
+.achievements{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.achievement{
+  padding:22px;
+}
+
+.achievement-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:#fef3c7;
+  display:grid;
+  place-items:center;
+  font-size:20px;
+}
+
+.achievement h3{
+  margin:18px 0 6px;
+  font-size:16px;
+}
+
+.achievement p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.contact-wrap{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:24px;
+}
+
+.contact-panel{
+  padding:30px;
+  background:var(--ink);
+  color:#fff;
+  border-radius:24px;
+}
+
+.contact-panel h2{
+  font-size:36px;
+  letter-spacing:-.04em;
+  line-height:1.05;
+  margin:0 0 16px;
+}
+
+.contact-panel p{
+  color:#cbd5e1;
+}
+
+.contact-links{
+  margin-top:30px;
+  display:grid;
+  gap:10px;
+}
+
+.contact-link{
+  padding:14px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:12px;
+  color:#e5e7eb;
+  font-size:13px;
+}
+
+.contact-form{
+  padding:30px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.field{
+  display:grid;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  font-size:12px;
+  font-weight:800;
+  color:#475467;
+}
+
+.field input,
+.field textarea{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 13px;
+  outline:none;
+  background:#fff;
+}
+
+.field textarea{
+  min-height:140px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px rgba(15,118,110,.1);
+}
+
+.footer{
+  padding:30px 0 46px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid var(--line);
+  padding-top:22px;
+}
+
 /* ADMIN */
 
 .admin-shell[hidden]{
