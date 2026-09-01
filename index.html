@@ -114,22 +114,8 @@ section{padding:92px 0}.section-head{display:grid;grid-template-columns:1fr auto
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
-// Firebase Console -> Project settings -> Your apps -> Web app dan oling.
-// Bu ma'lumotlar frontend uchun mo'ljallangan konfiguratsiya; xavfsizlik Firebase Auth va Database Rules orqali qilinadi.
 const firebaseConfig = { databaseURL: "https://biu-e54d1-default-rtdb.asia-southeast1.firebasedatabase.app/" };
 
-const FIREBASE_READY = Object.values(firebaseConfig).every(v => v && !String(v).startsWith("YOUR_"));
-let firebaseApp = null, rtdb = null, portfolioRef = null;
-if (FIREBASE_READY) {
-  firebaseApp = initializeApp(firebaseConfig);
-  rtdb = getDatabase(firebaseApp);
-  portfolioRef = ref(rtdb,"portfolio");
-}
-
-// NOTE: the original file embedded a large base64 JPEG here as the default photo.
-// To keep this split file clean/maintainable, a small neutral placeholder is used instead.
-// Upload the real photo once via admin.html (Profil > Profil rasmi) — it gets saved to
-// Firebase/localStorage as data.profile.image and will override this placeholder automatically.
 const EMBEDDED_PHOTO = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="%23eef1f2"/><circle cx="200" cy="160" r="70" fill="%23c8cdd2"/><rect x="80" y="250" width="240" height="130" rx="60" fill="%23c8cdd2"/></svg>');
 const defaults = {
  profile:{
@@ -167,41 +153,66 @@ const defaults = {
   ["GitHub","dasturlashcurssalohiddin-collab","https://github.com/dasturlashcurssalohiddin-collab"]
  ]
 };
+
 const LOCAL_STORAGE_KEY = "salohiddin-portfolio-v3-local";
 let data = clone(defaults);
+
 function clone(x){return JSON.parse(JSON.stringify(x))}
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#039;"}[m]))}
 function localLoad(){try{return {...clone(defaults),...JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)||"{}")}}catch(e){return clone(defaults)}}
+
 async function loadData(){
- data=localLoad();
- if(FIREBASE_READY){ onValue(portfolioRef,snap=>{if(snap.exists()){data={...clone(defaults),...snap.val()};renderPublic();}}); }
- renderPublic();
+  data = localLoad();
+  renderPublic();
+
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const rtdb = getDatabase(firebaseApp);
+    const portfolioRef = ref(rtdb, "portfolio");
+    
+    onValue(portfolioRef, snap => {
+      if(snap.exists()){
+        data = {...clone(defaults), ...snap.val()};
+        renderPublic();
+      }
+    }, (error) => {
+      console.warn("Firebase ulanmadi, LocalStorage ishlatiladi:", error);
+    });
+  } catch(e) {
+    console.warn("Firebase moduli ishlamadi:", e);
+  }
 }
+
 function renderPublic(){
- document.getElementById("brandName").textContent=data.profile.name;
- document.getElementById("heroEyebrow").textContent=data.profile.eyebrow;
- document.getElementById("heroTitle").innerHTML=data.profile.title;
- document.getElementById("heroText").textContent=data.profile.intro;
- document.getElementById("profileImage").src=data.profile.image||EMBEDDED_PHOTO;
- document.getElementById("profileCaption").textContent=data.profile.name;
- document.getElementById("aboutText").innerHTML=data.profile.about.map(p=>`<p>${esc(p)}</p>`).join("");
- document.getElementById("facts").innerHTML=data.profile.facts.map(([k,v])=>`<div class="info-row"><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join("");
- document.getElementById("stats").innerHTML=data.stats.map(([a,b])=>`<div class="stat"><strong>${esc(a)}</strong><span>${esc(b)}</span></div>`).join("");
- document.getElementById("skillGroups").innerHTML=data.skills.map(g=>`<div class="skill-group"><h3>${esc(g.group)}</h3><div class="skills">${g.items.map(([n,l,level])=>`<article class="card skill"><div class="skill-top"><span>${esc(n)}</span><small>${esc(level)}</small></div><div class="bar"><i style="width:${Math.max(0,Math.min(100,+l||0))}%"></i></div></article>`).join("")}</div></div>`).join("");
- document.getElementById("projectsGrid").innerHTML=data.projects.map((p,i)=>`<article class="card project"><span class="project-num">PROJECT ${String(i+1).padStart(2,"0")}</span><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p><div class="tags">${(p.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div><div class="project-links"><span>${esc(p.type)}</span>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">Ko'rish ↗</a>`:""}</div></article>`).join("");
- document.getElementById("achievementsGrid").innerHTML=data.achievements.map((a,i)=>`<article class="card achievement"><div class="achievement-icon">${["◈","◌","↗"][i%3]}</div><h3>${esc(a[0])}</h3><p>${esc(a[1])}</p></article>`).join("");
- document.getElementById("contactLinks").innerHTML=data.contacts.map(c=>`<a class="contact-link" href="${esc(c[2])}" target="${c[2].startsWith("http")?"_blank":"_self"}"><strong>${esc(c[0])}</strong><br>${esc(c[1])}</a>`).join("");
- document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} ${data.profile.name}`;
+  document.getElementById("brandName").textContent=data.profile.name;
+  document.getElementById("heroEyebrow").textContent=data.profile.eyebrow;
+  document.getElementById("heroTitle").innerHTML=data.profile.title;
+  document.getElementById("heroText").textContent=data.profile.intro;
+  document.getElementById("profileImage").src=data.profile.image||EMBEDDED_PHOTO;
+  document.getElementById("profileCaption").textContent=data.profile.name;
+  document.getElementById("aboutText").innerHTML=data.profile.about.map(p=>`<p>${esc(p)}</p>`).join("");
+  document.getElementById("facts").innerHTML=data.profile.facts.map(([k,v])=>`<div class="info-row"><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join("");
+  document.getElementById("stats").innerHTML=data.stats.map(([a,b])=>`<div class="stat"><strong>${esc(a)}</strong><span>${esc(b)}</span></div>`).join("");
+  document.getElementById("skillGroups").innerHTML=data.skills.map(g=>`<div class="skill-group"><h3>${esc(g.group)}</h3><div class="skills">${g.items.map(([n,l,level])=>`<article class="card skill"><div class="skill-top"><span>${esc(n)}</span><small>${esc(level)}</small></div><div class="bar"><i style="width:${Math.max(0,Math.min(100,+l||0))}%"></i></div></article>`).join("")}</div></div>`).join("");
+  document.getElementById("projectsGrid").innerHTML=data.projects.map((p,i)=>`<article class="card project"><span class="project-num">PROJECT ${String(i+1).padStart(2,"0")}</span><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p><div class="tags">${(p.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div><div class="project-links"><span>${esc(p.type)}</span>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">Ko'rish ↗</a>`:""}</div></article>`).join("");
+  document.getElementById("achievementsGrid").innerHTML=data.achievements.map((a,i)=>`<article class="card achievement"><div class="achievement-icon">${["◈","◌","↗"][i%3]}</div><h3>${esc(a[0])}</h3><p>${esc(a[1])}</p></article>`).join("");
+  document.getElementById("contactLinks").innerHTML=data.contacts.map(c=>`<a class="contact-link" href="${esc(c[2])}" target="${c[2].startsWith("http")?"_blank":"_self"}"><strong>${esc(c[0])}</strong><br>${esc(c[1])}</a>`).join("");
+  document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} ${data.profile.name}`;
 }
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2400)}
+
 document.getElementById("menuBtn").onclick=()=>document.getElementById("mobileNav").classList.toggle("open");
 document.querySelectorAll("#mobileNav a").forEach(a=>a.onclick=()=>document.getElementById("mobileNav").classList.remove("open"));
 document.getElementById("contactForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const n=msgName.value.trim(),c=msgContact.value.trim(),m=msgText.value.trim();
- const subject=encodeURIComponent("Portfolio saytidan yangi xabar");
- const body=encodeURIComponent(`Ism: ${n}\nAloqa: ${c}\n\nXabar:\n${m}`);
- location.href=`mailto:?subject=${subject}&body=${body}`;
+  e.preventDefault();
+  const n=msgName.value.trim(),c=msgContact.value.trim(),m=msgText.value.trim();
+  const subject=encodeURIComponent("Portfolio saytidan yangi xabar");
+  const body=encodeURIComponent(`Ism: ${n}\nAloqa: ${c}\n\nXabar:\n${m}`);
+  location.href=`mailto:?subject=${subject}&body=${body}`;
+});
+
+window.addEventListener('storage', () => {
+  data = localLoad();
+  renderPublic();
 });
 
 await loadData();
