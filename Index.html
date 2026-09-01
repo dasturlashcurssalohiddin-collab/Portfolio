@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirish — Shaxsiy sahifa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0d1420;
+    --navy-900:#121b2b;
+    --navy-800:#1a2740;
+    --navy-700:#26385a;
+    --gold-500:#c9a24a;
+    --gold-400:#dcb968;
+    --paper:#f6f3ec;
+    --paper-dim:#e9e4d6;
+    --ink:#161310;
+    --ink-soft:#4d473d;
+    --line: rgba(201,162,74,0.28);
+    --danger:#a13d3d;
+    --danger-soft:#f4e3e0;
+    --ok:#2f6b4f;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Space Grotesk',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Source Serif 4', serif;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  ::selection{background:var(--gold-400);color:var(--navy-950);}
+
+  /* ---------- SCREEN SWITCH ---------- */
+  .screen{display:none;}
+  .screen.active{display:block;}
+  #screen-gate.active{display:grid;}
+  #screen-admin.active{display:grid;}
+
+  /* ================= GATE SCREEN ================= */
+  #screen-gate{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns: 1.05fr 1fr;
+    background:var(--navy-950);
+  }
+  .gate-visual{
+    position:relative;
+    background:
+      radial-gradient(1100px 700px at 15% -10%, rgba(201,162,74,0.16), transparent 60%),
+      linear-gradient(180deg, var(--navy-900), var(--navy-950));
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:56px;
+  }
+  .gate-visual::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(201,162,74,0.045) 0px, rgba(201,162,74,0.045) 1px, transparent 1px, transparent 64px);
+  }
+  .gate-photo-wrap{
+    position:relative;
+    width:220px;
+    height:220px;
+    border-radius:6px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    margin-bottom:32px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+  .gate-photo-wrap img{
+    width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block;
+  }
+  .gate-eyebrow{
+    position:relative;
+    color:var(--gold-400);
+    font-size:13px;
+    letter-spacing:0.02em;
+    margin-bottom:14px;
+    font-weight:500;
+  }
+  .gate-name{
+    position:relative;
+    color:var(--paper);
+    font-size:clamp(34px, 4vw, 52px);
+    line-height:1.05;
+    margin:0 0 14px 0;
+    font-weight:600;
+  }
+  .gate-tagline{
+    position:relative;
+    color:#a9b2c4;
+    font-size:16px;
+    line-height:1.6;
+    max-width:420px;
+    margin:0;
+  }
+  .gate-form-side{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:56px;
+    background:var(--paper);
+  }
+  .gate-card{
+    width:100%;
+    max-width:400px;
+  }
+  .gate-card h2{
+    font-size:26px;
+    margin:0 0 8px 0;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .gate-card p.hint{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.55;
+    margin:0 0 32px 0;
+  }
+  .field{
+    margin-bottom:20px;
+  }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:7px;
+    font-weight:500;
+  }
+  .field label .opt{
+    color:#9a927e;
+    font-weight:400;
+  }
+  .field input{
+    width:100%;
+    border:1px solid #d9d2bf;
+    background:#fff;
+    border-radius:4px;
+    padding:13px 14px;
+    font-size:15px;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field input:focus{
+    border-color:var(--gold-500);
+    box-shadow:0 0 0 3px rgba(201,162,74,0.16);
+  }
+  .phone-row{
+    display:flex;
+    align-items:stretch;
+    border:1px solid #d9d2bf;
+    border-radius:4px;
+    background:#fff;
+    overflow:hidden;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .phone-row:focus-within{
+    border-color:var(--gold-500);
+    box-shadow:0 0 0 3px rgba(201,162,74,0.16);
+  }
+  .phone-prefix{
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    background:var(--paper-dim);
+    color:var(--ink-soft);
+    font-size:15px;
+    border-right:1px solid #d9d2bf;
+    white-space:nowrap;
+  }
+  .phone-row input{
+    border:none;
+    flex:1;
+    padding:13px 14px;
+    font-size:15px;
+    outline:none;
+    background:transparent;
+    letter-spacing:0.4px;
+  }
+  .field .err{
+    display:none;
+    color:var(--danger);
+    font-size:12.5px;
+    margin-top:6px;
+  }
+  .field.invalid .err{display:block;}
+  .field.invalid .phone-row, .field.invalid input{border-color:var(--danger);}
+
+  .btn-primary{
+    width:100%;
+    padding:14px 18px;
+    background:var(--navy-950);
+    color:var(--paper);
+    border:none;
+    border-radius:4px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    letter-spacing:0.01em;
+    transition:background .15s ease, transform .1s ease;
+    margin-top:6px;
+  }
+  .btn-primary:hover{background:var(--navy-800);}
+  .btn-primary:active{transform:translateY(1px);}
+
+  /* toast */
+  #toast{
+    position:fixed;
+    bottom:26px;
+    left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--navy-950);
+    color:var(--paper);
+    padding:12px 20px;
+    border-radius:5px;
+    font-size:13.5px;
+    border:1px solid var(--line);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+    z-index:999;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ============ GATE ============ -->
+<section id="screen-gate" class="screen active">
+  <div class="gate-visual">
+    <div class="gate-photo-wrap">
+      <!-- Rasm shu yerda joylashadi -->
+      <img src="https://via.placeholder.com/220" alt="Profile">
+    </div>
+    <div class="gate-eyebrow">Tizimga kirish</div>
+    <h1 class="gate-name">Xush kelibsiz</h1>
+    <p class="gate-tagline">Davom etish uchun ma'lumotlaringizni kiriting.</p>
+  </div>
+  
+  <div class="gate-form-side">
+    <div class="gate-card">
+      <h2>Kirish</h2>
+      <p class="hint">Iltimos, ismingiz va telefon raqamingizni yozing.</p>
+      
+      <form id="login-form">
+        <div class="field">
+          <label for="in-name">Ism <span class="opt">(majburiy emas)</span></label>
+          <input type="text" id="in-name" placeholder="Ismingizni kiriting">
+        </div>
+        
+        <div class="field" id="phone-field">
+          <label for="in-phone">Telefon raqam</label>
+          <div class="phone-row">
+            <span class="phone-prefix">+998</span>
+            <input type="tel" id="in-phone" placeholder="90 123 45 67">
+          </div>
+          <div class="err">Noto'g'ri telefon raqam!</div>
+        </div>
+        
+        <button type="submit" class="btn-primary">Kirish</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WELCOME ============ -->
+<section id="screen-welcome" class="screen">
+  <div class="welcome-hero">
+    <h1>Xush kelibsiz, <span id="welcome-name-slot"></span>!</h1>
+    <p>Siz muvaffaqiyatli ro'yxatdan o'tdingiz.</p>
+  </div>
+</section>
+
+<!-- ============ ADMIN ============ -->
+<section id="screen-admin" class="screen">
+  <div class="admin-main">
+    <h1>Admin Panel</h1>
+    <p>Xush kelibsiz, Admin!</p>
+  </div>
+</section>
+
+<!-- ============ ADMIN LOGIN ============ -->
+<section id="screen-admin-login" class="screen">
+  <div class="gate-form-side">
+    <div class="gate-card">
+      <h2>Admin Login</h2>
+      <input type="text" id="admin-email" placeholder="Email" class="field" style="width: 100%; margin-bottom:10px; padding: 10px;">
+      <input type="password" id="admin-password" placeholder="Parol" class="field" style="width: 100%; margin-bottom:10px; padding: 10px;">
+    </div>
+  </div>
+</section>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+  // Global o'zgaruvchilar va mock funksiyalar (Sizning kodingiz bilan ishlaydigan qilish uchun)
+  const ADMIN_WORD = "admin";
+  const COLLECTION = "visitors";
+  const form = document.getElementById("login-form");
+  const phoneInput = document.getElementById("in-phone");
+  const phoneField = document.getElementById("phone-field");
+
+  // Ekranlarni almashtirish funksiyasi
+  function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+  }
+
+  // Toast bildirishnoma funksiyasi
+  function toast(message) {
+    const toastEl = document.getElementById('toast');
+    toastEl.textContent = message;
+    toastEl.classList.add('show');
+    setTimeout(() => toastEl.classList.remove('show'), 3000);
+  }
+
+  // Telefon tekshirish (o'zingizdagi mantiq bo'yicha uzunlikni o'zgartirishingiz mumkin)
+  function isPhoneComplete(val) {
+    return val.replace(/\D/g, '').length === 9; // Masalan: faqat raqamlar va 9 ta bo'lishi kerak
+  }
+
+  function startVisitorsListener() {
+    console.log("Visitor listener started...");
+  }
+
+  // Firebase va Auth (Mock obyektlar — agar Firebase ulangansiz ishlatsangiz)
+  const auth = { currentUser: null }; 
+  const db = {
+    collection: function(name) {
+      return {
+        add: function(data) {
+          return new Promise((resolve) => {
+            console.log("Saqlandi:", data);
+            setTimeout(resolve, 500); // 0.5 soniya imitatsiya
+          });
+        }
+      }
+    }
+  };
+  const firebase = { firestore: { FieldValue: { serverTimestamp: () => new Date() } } };
+
+  // ================= MAIN LOGIC YOZILGAN QISM =================
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var nameRaw = document.getElementById("in-name").value.trim();
+    var phoneVal = phoneInput.value.trim();
+
+    // 1) ADMIN SO'ZINI BIRINCHI TEKSHIRAMIZ — telefon shart emas
+    if(nameRaw.toLowerCase() === ADMIN_WORD.toLowerCase()){
+      form.reset();
+      if(auth.currentUser){
+        startVisitorsListener();
+        showScreen("screen-admin");
+      } else {
+        document.getElementById("admin-email").value = ADMIN_WORD;
+        showScreen("screen-admin-login");
+        document.getElementById("admin-password").focus();
+      }
+      return;
+    }
+
+    // 2) faqat oddiy ro'yxatdan o'tish uchun telefon shart
+    if(!isPhoneComplete(phoneVal)){
+      phoneField.classList.add("invalid");
+      phoneInput.focus();
+      return;
+    }
+    phoneField.classList.remove("invalid");
+
+    var fullPhone = "+998 " + phoneVal;
+    var submitBtn = form.querySelector("button[type=submit]");
+    submitBtn.disabled = true;
+
+    db.collection(COLLECTION).add({
+      name: nameRaw || "",
+      phone: fullPhone,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(function(){
+      document.getElementById("welcome-name-slot").textContent = nameRaw || fullPhone;
+      showScreen("screen-welcome");
+      form.reset();
+    }).catch(function(err){
+      toast("Xatolik: ma'lumot saqlanmadi. Internetni tekshiring.");
+      console.error(err);
+    }).finally(function(){
+      submitBtn.disabled = false;
+    });
+  });
+</script>
+</body>
+</html>
