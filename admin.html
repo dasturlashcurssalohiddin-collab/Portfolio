@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Portfolio Admin</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Inter,system-ui,sans-serif;
+background:#f5f7f9;
+color:#101828;
+}
+
+header{
+height:72px;
+background:#101828;
+color:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+}
+
+header strong{font-size:18px}
+
+.container{
+width:min(1100px,calc(100% - 30px));
+margin:auto;
+}
+
+main{
+padding:35px 0 60px;
+}
+
+.login{
+min-height:calc(100vh - 72px);
+display:grid;
+place-items:center;
+}
+
+.login-card{
+width:min(430px,100%);
+background:white;
+border:1px solid #e5e7eb;
+border-radius:20px;
+padding:30px;
+box-shadow:0 20px 60px rgba(16,24,40,.1);
+}
+
+h1,h2{
+margin-top:0;
+}
+
+.field{
+display:grid;
+gap:7px;
+margin-bottom:15px;
+}
+
+label{
+font-size:13px;
+font-weight:700;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+border:1px solid #d0d5dd;
+border-radius:10px;
+font:inherit;
+}
+
+textarea{
+min-height:180px;
+resize:vertical;
+}
+
+button{
+border:0;
+border-radius:10px;
+padding:12px 17px;
+font-weight:800;
+cursor:pointer;
+}
+
+.primary{
+background:#101828;
+color:white;
+}
+
+.light{
+background:white;
+border:1px solid #d0d5dd;
+}
+
+.danger{
+background:#fff1f0;
+color:#b42318;
+}
+
+.hidden{
+display:none!important;
+}
+
+.admin-grid{
+display:grid;
+grid-template-columns:220px 1fr;
+gap:20px;
+}
+
+.menu{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:10px;
+height:max-content;
+}
+
+.menu button{
+display:block;
+width:100%;
+text-align:left;
+background:transparent;
+margin-bottom:5px;
+}
+
+.menu button:hover{
+background:#f2f4f7;
+}
+
+.panel{
+background:white;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:25px;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.message{
+padding:15px;
+border:1px solid #e5e7eb;
+border-radius:12px;
+margin-bottom:10px;
+background:#fafafa;
+}
+
+.message strong{
+display:block;
+}
+
+.message small{
+color:#667085;
+}
+
+@media(max-width:700px){
+
+.admin-grid{
+grid-template-columns:1fr;
+}
+
+.menu{
+display:flex;
+overflow:auto;
+}
+
+.menu button{
+white-space:nowrap;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<strong>TS · Portfolio Admin</strong>
+
+<button id="logoutBtn" class="light">
+Chiqish
+</button>
+
+</header>
+
+
+<div class="container">
+
+<!-- LOGIN -->
+
+<section id="loginSection" class="login">
+
+<div class="login-card">
+
+<h1>Admin panel</h1>
+
+<p>
+Davom etish uchun admin parolini kiriting.
+</p>
+
+<form id="loginForm">
+
+<div class="field">
+
+<label>Email</label>
+
+<input
+id="email"
+type="email"
+required
+placeholder="admin@example.com">
+
+</div>
+
+<div class="field">
+
+<label>Parol</label>
+
+<input
+id="password"
+type="password"
+required
+placeholder="Parol">
+
+</div>
+
+<button class="primary" style="width:100%">
+Kirish
+</button>
+
+</form>
+
+<p id="loginError" style="color:#b42318"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<main id="adminSection" class="hidden">
+
+<div class="admin-grid">
+
+<aside class="menu">
+
+<button data-tab="profile">
+Profil
+</button>
+
+<button data-tab="skills">
+Ko‘nikmalar
+</button>
+
+<button data-tab="projects">
+Loyihalar
+</button>
+
+<button data-tab="contacts">
+Aloqa
+</button>
+
+<button data-tab="messages">
+Xabarlar
+</button>
+
+</aside>
+
+
+<section class="panel">
+
+<div id="panelContent"></div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+get,
+set,
+onValue
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+/* ==========================
+   FIREBASE CONFIG
+========================== */
+
+const firebaseConfig = {
+
+apiKey:"BU_YERGA_API_KEY",
+
+authDomain:"biu-e54d1.firebaseapp.com",
+
+databaseURL:
+"https://biu-e54d1-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId:"biu-e54d1",
+
+storageBucket:"BU_YERGA_STORAGE_BUCKET",
+
+messagingSenderId:"BU_YERGA_MESSAGING_SENDER_ID",
+
+appId:"BU_YERGA_APP_ID"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+const auth = getAuth(app);
+
+
+/* ==========================
+   ELEMENTS
+========================== */
+
+const loginSection =
+document.getElementById("loginSection");
+
+const adminSection =
+document.getElementById("adminSection");
+
+const loginForm =
+document.getElementById("loginForm");
+
+const loginError =
+document.getElementById("loginError");
+
+const panel =
+document.getElementById("panelContent");
+
+
+/* ==========================
+   LOGIN
+========================== */
+
+loginForm.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+loginError.textContent="";
+
+}catch(error){
+
+console.error(error);
+
+loginError.textContent =
+"Email yoki parol noto‘g‘ri.";
+
+}
+
+});
+
+
+/* ==========================
+   AUTH STATE
+========================== */
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+loginSection.classList.add("hidden");
+
+adminSection.classList.remove("hidden");
+
+openTab("profile");
+
+}else{
+
+loginSection.classList.remove("hidden");
+
+adminSection.classList.add("hidden");
+
+}
+
+});
+
+
+/* ==========================
+   LOGOUT
+========================== */
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click",()=>{
+
+signOut(auth);
+
+});
+
+
+/* ==========================
+   MENU
+========================== */
+
+document
+.querySelector(".menu")
+.addEventListener("click",(e)=>{
+
+const button =
+e.target.closest("[data-tab]");
+
+if(!button)return;
+
+openTab(button.dataset.tab);
+
+});
+
+
+/* ==========================
+   OPEN TAB
+========================== */
+
+async function openTab(tab){
+
+if(tab==="profile")
+return profilePanel();
+
+if(tab==="skills")
+return skillsPanel();
+
+if(tab==="projects")
+return projectsPanel();
+
+if(tab==="contacts")
+return contactsPanel();
+
+if(tab==="messages")
+return messagesPanel();
+
+}
+
+
+/* ==========================
+   PROFILE
+========================== */
+
+async function profilePanel(){
+
+const snap =
+await get(ref(db,"portfolio/profile"));
+
+const p =
+snap.val() || {};
+
+panel.innerHTML=`
+
+<h2>Profil</h2>
+
+<div class="field">
+<label>Ism</label>
+<input id="pName" value="${esc(p.name)}">
+</div>
+
+<div class="field">
+<label>Yuqori satr</label>
+<input id="pEyebrow" value="${esc(p.eyebrow)}">
+</div>
+
+<div class="field">
+<label>Sarlavha</label>
+<input id="pTitle" value="${esc(p.title)}">
+</div>
+
+<div class="field">
+<label>Qisqa ta’rif</label>
+<textarea id="pIntro">${esc(p.intro)}</textarea>
+</div>
+
+<div class="field">
+<label>Men haqimda 1</label>
+<textarea id="about0">${esc((p.about||[])[0]||"")}</textarea>
+</div>
+
+<div class="field">
+<label>Men haqimda 2</label>
+<textarea id="about1">${esc((p.about||[])[1]||"")}</textarea>
+</div>
+
+<div class="actions">
+
+<button class="primary" id="saveProfile">
+Saqlash
+</button>
+
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document
+.getElementById("saveProfile")
+.onclick=async()=>{
+
+await set(ref(db,"portfolio/profile"),{
+
+...p,
+
+name:document.getElementById("pName").value,
+
+eyebrow:
+document.getElementById("pEyebrow").value,
+
+title:
+document.getElementById("pTitle").value,
+
+intro:
+document.getElementById("pIntro").value,
+
+about:[
+document.getElementById("about0").value,
+document.getElementById("about1").value
+]
+
+});
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   SKILLS
+========================== */
+
+async function skillsPanel(){
+
+const snap =
+await get(ref(db,"portfolio/skills"));
+
+const skills =
+snap.val() || [];
+
+panel.innerHTML=`
+
+<h2>Ko‘nikmalar</h2>
+
+<p>
+Har qatorda:
+<strong>nomi | foiz | daraja</strong>
+</p>
+
+<textarea id="skillsText"></textarea>
+
+<div class="actions">
+<button class="primary" id="saveSkills">
+Saqlash
+</button>
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document.getElementById("skillsText").value =
+skills.map(x=>x.join(" | ")).join("\n");
+
+document.getElementById("saveSkills").onclick=async()=>{
+
+const result =
+document.getElementById("skillsText")
+.value
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean)
+.map(x=>{
+
+const a=x.split("|").map(y=>y.trim());
+
+return[
+a[0],
+Number(a[1])||0,
+a[2]||""
+];
+
+});
+
+await set(
+ref(db,"portfolio/skills"),
+result
+);
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   PROJECTS
+========================== */
+
+async function projectsPanel(){
+
+const snap =
+await get(ref(db,"portfolio/projects"));
+
+const projects =
+snap.val() || [];
+
+panel.innerHTML=`
+
+<h2>Loyihalar</h2>
+
+<p>
+Har qatorda:
+<strong>Nomi | Turi | Tavsif | Teglar | URL</strong>
+</p>
+
+<textarea id="projectsText"></textarea>
+
+<div class="actions">
+<button class="primary" id="saveProjects">
+Saqlash
+</button>
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document.getElementById("projectsText").value =
+projects.map(p=>[
+p.name,
+p.type,
+p.desc,
+(p.tags||[]).join(","),
+p.url||""
+].join(" | ")).join("\n");
+
+
+document.getElementById("saveProjects").onclick=async()=>{
+
+const result =
+document.getElementById("projectsText")
+.value
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean)
+.map(x=>{
+
+const a=x.split("|").map(y=>y.trim());
+
+return{
+
+name:a[0]||"",
+
+type:a[1]||"",
+
+desc:a[2]||"",
+
+tags:(a[3]||"")
+.split(",")
+.map(x=>x.trim())
+.filter(Boolean),
+
+url:a[4]||""
+
+};
+
+});
+
+await set(
+ref(db,"portfolio/projects"),
+result
+);
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   CONTACTS
+========================== */
+
+async function contactsPanel(){
+
+const snap =
+await get(ref(db,"portfolio/contacts"));
+
+const contacts =
+snap.val() || [];
+
+panel.innerHTML=`
+
+<h2>Aloqa</h2>
+
+<p>
+Har qatorda:
+<strong>Nomi | Ko‘rsatiladigan qiymat | Link</strong>
+</p>
+
+<textarea id="contactsText"></textarea>
+
+<div class="actions">
+<button class="primary" id="saveContacts">
+Saqlash
+</button>
+</div>
+
+<p id="saveStatus"></p>
+
+`;
+
+document.getElementById("contactsText").value =
+contacts.map(x=>x.join(" | ")).join("\n");
+
+
+document.getElementById("saveContacts").onclick=async()=>{
+
+const result =
+document.getElementById("contactsText")
+.value
+.split("\n")
+.map(x=>x.trim())
+.filter(Boolean)
+.map(x=>{
+
+const a=x.split("|").map(y=>y.trim());
+
+return[
+a[0]||"",
+a[1]||"",
+a.slice(2).join(" | ")
+];
+
+});
+
+await set(
+ref(db,"portfolio/contacts"),
+result
+);
+
+document.getElementById("saveStatus")
+.textContent="Saqlandi ✓";
+
+};
+
+}
+
+
+/* ==========================
+   MESSAGES
+========================== */
+
+function messagesPanel(){
+
+panel.innerHTML=`
+
+<h2>Kelgan xabarlar</h2>
+
+<div id="messagesList">
+Yuklanmoqda...
+</div>
+
+`;
+
+onValue(
+ref(db,"messages"),
+(snapshot)=>{
+
+const data =
+snapshot.val() || {};
+
+const list =
+Object.entries(data)
+.reverse();
+
+if(!list.length){
+
+document.getElementById("messagesList")
+.innerHTML="<p>Hozircha xabar yo‘q.</p>";
+
+return;
+
+}
+
+document.getElementById("messagesList")
+.innerHTML =
+list.map(([id,m])=>`
+
+<div class="message">
+
+<strong>${esc(m.name)}</strong>
+
+<div>
+${esc(m.contact)}
+</div>
+
+<p>
+${esc(m.message)}
+</p>
+
+<small>
+${m.createdAt ?
+new Date(m.createdAt).toLocaleString("uz-UZ"):""}
+</small>
+
+</div>
+
+`).join("");
+
+});
+
+}
+
+
+/* ==========================
+   ESCAPE
+========================== */
+
+function esc(value){
+
+return String(value ?? "")
+.replace(/[&<>"']/g,(m)=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m]));
+
+}
+
+</script>
+
+</body>
+</html>
