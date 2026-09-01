@@ -4,355 +4,759 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel</title>
+
+<title>Salohiddin — Portfolio</title>
 
 <style>
+
+/* =========================
+   GLOBAL
+========================= */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-:root {
-    --bg: #f5f7fb;
-    --card: #ffffff;
-    --text: #111827;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --primary: #111827;
-    --danger: #dc2626;
-    --success: #16a34a;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: #f7f8fa;
+    color: #111827;
 }
 
+button,
+input,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
 /* =========================
-   LOGIN
+   PORTFOLIO
 ========================= */
 
-.login-page {
-    min-height: 100vh;
+#portfolio {
+    display: block;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-inner {
+    max-width: 1150px;
+    margin: auto;
+
+    height: 70px;
+
+    padding: 0 20px;
+
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #111827;
+}
+
+.menu {
+    display: none;
+
+    border: 0;
+    background: #f3f4f6;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    max-width: 1150px;
+    margin: auto;
+
+    min-height: 600px;
+
+    padding: 100px 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.hero small {
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1.05;
+
+    margin: 18px 0;
+    letter-spacing: -3px;
+}
+
+.hero h1 span {
+    color: #6b7280;
+}
+
+.hero p {
+    color: #6b7280;
+    font-size: 18px;
+    line-height: 1.7;
+
+    max-width: 650px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: 0;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.btn-dark {
+    background: #111827;
+    color: white;
+}
+
+.btn-light {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    max-width: 1150px;
+    margin: auto;
+
+    padding: 80px 20px;
+}
+
+.section-title {
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: #6b7280;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 50px;
+}
+
+.about-text {
+    line-height: 1.8;
+    color: #4b5563;
+}
+
+.about-info {
+    display: grid;
+    gap: 12px;
+}
+
+.info-box {
+    background: white;
+    border: 1px solid #e5e7eb;
+
+    padding: 20px;
+
+    border-radius: 14px;
+}
+
+.info-box span {
+    display: block;
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.info-box strong {
+    font-size: 16px;
+}
+
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.project-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    transition: .2s;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+}
+
+.project-image {
+    width: 100%;
+    height: 190px;
+
+    object-fit: cover;
+
+    background: #e5e7eb;
+}
+
+.project-body {
+    padding: 20px;
+}
+
+.project-body h3 {
+    margin-bottom: 8px;
+}
+
+.project-body p {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+.links {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.social-link {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    padding: 13px 18px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.social-link:hover {
+    background: #111827;
+    color: white;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    border-top: 1px solid #e5e7eb;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    color: #6b7280;
+}
+
+.admin-access {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    font-size: 11px;
+
+    color: #9ca3af;
+
+    cursor: pointer;
+
+    background: transparent;
+
+    border: 0;
+}
+
+.admin-access:hover {
+    color: #111827;
+}
+
+
+/* =========================
+   ADMIN OVERLAY
+========================= */
+
+#adminPanel {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    background: #f5f7fb;
+
+    overflow-y: auto;
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+#adminLogin {
+    min-height: 100vh;
+
+    display: flex;
+
     justify-content: center;
     align-items: center;
+
     padding: 20px;
 }
 
 .login-box {
     width: 100%;
     max-width: 420px;
+
     background: white;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 35px;
-    box-shadow: 0 15px 50px rgba(0,0,0,.07);
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.08);
 }
 
-.login-box h1 {
-    font-size: 25px;
+.login-box h2 {
     margin-bottom: 8px;
 }
 
 .login-box p {
-    color: var(--muted);
+    color: #6b7280;
+
     margin-bottom: 25px;
-}
-
-/* =========================
-   INPUTS
-========================= */
-
-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-size: 15px;
-    outline: none;
-    background: white;
-    color: var(--text);
-    transition: .2s;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #9ca3af;
-    box-shadow: 0 0 0 3px rgba(17,24,39,.05);
-}
-
-textarea {
-    resize: vertical;
-    min-height: 130px;
 }
 
 .form-group {
     margin-bottom: 18px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+label {
+    display: block;
 
-button {
-    border: 0;
-    cursor: pointer;
-    font-family: inherit;
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
 }
 
-.btn {
+input,
+textarea {
+    width: 100%;
+
+    border: 1px solid #e5e7eb;
+
+    background: white;
+
+    padding: 12px 14px;
+
     border-radius: 10px;
-    padding: 11px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: .2s;
+
+    font-size: 15px;
+
+    outline: none;
 }
 
-.btn:hover {
-    transform: translateY(-1px);
+input:focus,
+textarea:focus {
+    border-color: #9ca3af;
+
+    box-shadow:
+        0 0 0 3px rgba(17,24,39,.05);
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: white;
-}
+textarea {
+    min-height: 130px;
 
-.btn-light {
-    background: #f3f4f6;
-    color: #111827;
-}
-
-.btn-danger {
-    background: #fee2e2;
-    color: var(--danger);
-}
-
-.btn-success {
-    background: #dcfce7;
-    color: var(--success);
+    resize: vertical;
 }
 
 .full {
     width: 100%;
 }
 
+
 /* =========================
-   ADMIN
+   ADMIN DASHBOARD
 ========================= */
 
-.admin {
+.admin-layout {
     display: none;
+
     min-height: 100vh;
 }
 
-.sidebar {
+.admin-sidebar {
     position: fixed;
+
     left: 0;
     top: 0;
     bottom: 0;
+
     width: 250px;
+
     background: #111827;
+
     color: white;
+
     padding: 25px 15px;
+
     z-index: 1000;
+
+    transition: .25s;
 }
 
-.logo {
+.admin-logo {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 800;
+
     padding: 0 12px 30px;
 }
 
-.nav-btn {
+.admin-nav {
     width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+
     padding: 12px;
+
     margin-bottom: 5px;
+
+    border: 0;
+
     border-radius: 9px;
-    color: #d1d5db;
+
     background: transparent;
+
+    color: #d1d5db;
+
     text-align: left;
+
+    font-weight: 600;
 }
 
-.nav-btn:hover,
-.nav-btn.active {
+.admin-nav:hover,
+.admin-nav.active {
     background: #1f2937;
     color: white;
 }
 
-.main {
+.admin-main {
     margin-left: 250px;
+
     min-height: 100vh;
 }
 
-.topbar {
+.admin-topbar {
     height: 70px;
+
     background: white;
-    border-bottom: 1px solid var(--border);
+
+    border-bottom: 1px solid #e5e7eb;
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     padding: 0 30px;
+
     position: sticky;
+
     top: 0;
+
     z-index: 500;
 }
 
-.topbar h2 {
+.admin-topbar h2 {
     font-size: 20px;
 }
 
-.menu-btn {
-    display: none;
-    background: #f3f4f6;
-    padding: 9px 12px;
-    border-radius: 8px;
-    font-size: 20px;
-}
-
-.content {
+.admin-content {
     padding: 30px;
+
     max-width: 1200px;
 }
 
+.mobile-menu {
+    display: none;
+
+    border: 0;
+
+    background: #f3f4f6;
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 9px;
+
+    font-size: 19px;
+}
+
+
 /* =========================
-   CARDS
+   ADMIN CARDS
 ========================= */
 
-.card {
+.admin-card {
     background: white;
-    border: 1px solid var(--border);
+
+    border: 1px solid #e5e7eb;
+
     border-radius: 16px;
+
     padding: 24px;
+
     margin-bottom: 20px;
 }
 
-.card-header {
+.admin-card-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 20px;
-}
 
-.card-header h3 {
-    font-size: 18px;
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
 }
 
 .muted {
-    color: var(--muted);
+    color: #6b7280;
+
     font-size: 14px;
 }
 
+
 /* =========================
-   DASHBOARD
+   STATS
 ========================= */
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 18px;
+
     margin-bottom: 25px;
 }
 
 .stat {
     background: white;
-    border: 1px solid var(--border);
+
+    border: 1px solid #e5e7eb;
+
     border-radius: 15px;
+
     padding: 22px;
 }
 
 .stat span {
-    color: var(--muted);
+    color: #6b7280;
+
     font-size: 13px;
 }
 
 .stat strong {
     display: block;
+
     font-size: 30px;
+
     margin-top: 7px;
 }
 
+
 /* =========================
-   LINKS
+   LINK ROWS
 ========================= */
 
 .link-list {
     display: flex;
+
     flex-direction: column;
+
     gap: 12px;
 }
 
 .link-row {
     display: grid;
-    grid-template-columns: 1fr 2fr auto;
+
+    grid-template-columns:
+        1fr 2fr auto;
+
     gap: 10px;
+
     align-items: center;
+
     background: #f9fafb;
+
     padding: 12px;
-    border: 1px solid var(--border);
+
+    border: 1px solid #e5e7eb;
+
     border-radius: 12px;
 }
 
 .row-buttons {
     display: flex;
+
     gap: 5px;
 }
 
 .icon-btn {
     width: 38px;
     height: 38px;
+
     border-radius: 8px;
+
     background: white;
-    border: 1px solid var(--border);
-    font-size: 15px;
+
+    border: 1px solid #e5e7eb;
 }
 
-.icon-btn:hover {
-    background: #f3f4f6;
-}
-
-.add-btn {
-    margin-top: 14px;
-}
 
 /* =========================
-   PROJECTS
+   PROJECT ADMIN
 ========================= */
 
-.project {
-    border: 1px solid var(--border);
+.project-admin {
+    border: 1px solid #e5e7eb;
+
     border-radius: 14px;
+
     padding: 18px;
+
     margin-bottom: 15px;
 }
 
 .project-top {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     margin-bottom: 18px;
 }
 
-.project-number {
-    font-weight: 700;
-}
 
 /* =========================
    TOAST
@@ -360,53 +764,85 @@ button {
 
 .toast {
     position: fixed;
-    right: 25px;
-    bottom: 25px;
+
+    right: 20px;
+    bottom: 20px;
+
     background: #111827;
+
     color: white;
+
     padding: 13px 18px;
+
     border-radius: 10px;
+
     opacity: 0;
+
     transform: translateY(20px);
+
     pointer-events: none;
+
     transition: .3s;
-    z-index: 5000;
+
+    z-index: 20000;
 }
 
 .toast.show {
     opacity: 1;
+
     transform: translateY(0);
 }
+
 
 /* =========================
    MOBILE
 ========================= */
 
-@media (max-width: 800px) {
+@media(max-width: 850px) {
 
-    .sidebar {
-        transform: translateX(-100%);
-        transition: .25s;
-        width: 260px;
+    .nav-links {
+        display: none;
     }
 
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    .main {
-        margin-left: 0;
-    }
-
-    .menu-btn {
+    .menu {
         display: block;
     }
 
-    .topbar {
-        padding: 0 16px;
+    .hero {
+        min-height: 520px;
+
+        padding: 70px 20px;
     }
 
-    .content {
+    .about {
+        grid-template-columns: 1fr;
+    }
+
+    .projects {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .admin-topbar {
+        padding: 0 15px;
+    }
+
+    .admin-content {
         padding: 18px 14px;
     }
 
@@ -414,565 +850,1096 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .card {
-        padding: 18px;
-        border-radius: 13px;
-    }
-
-    .card-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
     .link-row {
         grid-template-columns: 1fr;
     }
 
-    .row-buttons {
-        justify-content: flex-end;
+    .admin-card {
+        padding: 18px;
     }
 
-    .project-top {
-        align-items: flex-start;
-    }
 }
 
-@media (max-width: 450px) {
+@media(max-width: 550px) {
 
-    .login-box {
-        padding: 25px 20px;
-        border-radius: 15px;
+    .hero h1 {
+        letter-spacing: -2px;
     }
 
-    .topbar h2 {
-        font-size: 17px;
-    }
-
-    .btn {
-        padding: 10px 13px;
-    }
-
-    input,
-    textarea {
+    .hero p {
         font-size: 16px;
     }
+
+    .projects {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 60px 18px;
+    }
+
+    .admin-card-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .login-box {
+        padding: 24px 20px;
+    }
+
 }
+
 </style>
 
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- ==================================================
+     PORTFOLIO
+================================================== -->
 
-<div class="login-page" id="loginPage">
+<div id="portfolio">
+
+<nav class="navbar">
 
 ```
-<div class="login-box">
+<div class="nav-inner">
 
-    <h1>Admin panel</h1>
+    <div class="logo" id="siteLogo">
+        Salohiddin
+    </div>
 
-    <p>
-        Davom etish uchun admin parolini kiriting.
+    <div class="nav-links">
+
+        <a href="#home">Bosh sahifa</a>
+
+        <a href="#about">Men haqimda</a>
+
+        <a href="#projects">Loyihalar</a>
+
+        <a href="#contact">Aloqa</a>
+
+    </div>
+
+    <button class="menu">
+        ☰
+    </button>
+
+</div>
+```
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+```
+<div class="hero-content">
+
+    <small id="heroJob">
+        Web Developer
+    </small>
+
+    <h1>
+        Salom, men
+        <span id="heroName">
+            Salohiddin
+        </span>
+    </h1>
+
+    <p id="heroBio">
+        Zamonaviy va foydalanuvchiga qulay
+        web loyihalar yarataman.
     </p>
 
-    <div class="form-group">
+    <div class="hero-buttons">
 
-        <label>Parol</label>
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Admin paroli"
+        <a
+            href="#projects"
+            class="btn btn-dark"
         >
+            Loyihalarim
+        </a>
+
+        <a
+            href="#contact"
+            class="btn btn-light"
+        >
+            Aloqa
+        </a>
 
     </div>
-
-    <button
-        class="btn btn-primary full"
-        onclick="login()"
-    >
-        Kirish
-    </button>
 
 </div>
 ```
 
-</div>
+</section>
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- ABOUT -->
 
-<div class="admin" id="admin">
+<section
+    class="section"
+    id="about"
+>
 
 ```
-<aside class="sidebar" id="sidebar">
+<div class="section-title">
 
-    <div class="logo">
-        Portfolio Admin
+    <h2>Men haqimda</h2>
+
+    <p>
+        Qisqacha ma'lumot
+    </p>
+
+</div>
+
+
+<div class="about">
+
+    <div class="about-text">
+
+        <p id="aboutText">
+            Men zamonaviy texnologiyalar bilan
+            ishlashga qiziqaman va turli web
+            loyihalar yarataman.
+        </p>
+
     </div>
 
-    <button
-        class="nav-btn active"
-        onclick="showSection('dashboard', this)"
-    >
-        📊 Dashboard
-    </button>
 
-    <button
-        class="nav-btn"
-        onclick="showSection('profile', this)"
-    >
-        👤 Profil
-    </button>
+    <div class="about-info">
 
-    <button
-        class="nav-btn"
-        onclick="showSection('projects', this)"
-    >
-        💼 Loyihalar
-    </button>
+        <div class="info-box">
 
-    <button
-        class="nav-btn"
-        onclick="showSection('links', this)"
-    >
-        🔗 Havolalar
-    </button>
+            <span>Ism</span>
 
-    <button
-        class="nav-btn"
-        onclick="logout()"
-    >
-        🚪 Chiqish
-    </button>
+            <strong id="aboutName">
+                Salohiddin
+            </strong>
 
-</aside>
+        </div>
+
+        <div class="info-box">
+
+            <span>Yo‘nalish</span>
+
+            <strong id="aboutJob">
+                Web Developer
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- PROJECTS -->
+
+<section
+    class="section"
+    id="projects"
+>
+
+```
+<div class="section-title">
+
+    <h2>Loyihalar</h2>
+
+    <p>
+        Men yaratgan loyihalar
+    </p>
+
+</div>
 
 
-<main class="main">
+<div
+    class="projects"
+    id="publicProjects"
+></div>
+```
 
-    <header class="topbar">
+</section>
+
+<!-- CONTACT -->
+
+<section
+    class="section"
+    id="contact"
+>
+
+```
+<div class="section-title">
+
+    <h2>Aloqa</h2>
+
+    <p>
+        Men bilan bog‘lanish
+    </p>
+
+</div>
+
+
+<div
+    class="links"
+    id="publicLinks"
+></div>
+```
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+```
+<div>
+    © 2026 <span id="footerName">
+        Salohiddin
+    </span>. Barcha huquqlar himoyalangan.
+</div>
+
+
+<!-- FAQAT SHU YERDAN ADMIN KIRADI -->
+
+<button
+    class="admin-access"
+    onclick="openAdmin()"
+>
+    Admin
+</button>
+```
+
+</footer>
+
+</div>
+
+<!-- ==================================================
+     ADMIN PANEL
+================================================== -->
+
+<div id="adminPanel">
+
+```
+<!-- LOGIN -->
+
+<div id="adminLogin">
+
+    <div class="login-box">
+
+        <h2>Admin panel</h2>
+
+        <p>
+            Davom etish uchun admin parolini kiriting.
+        </p>
+
+
+        <div class="form-group">
+
+            <label>
+                Parol
+            </label>
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Admin paroli"
+                onkeydown="
+                    if(event.key === 'Enter')
+                    loginAdmin()
+                "
+            >
+
+        </div>
+
 
         <button
-            class="menu-btn"
-            onclick="toggleSidebar()"
+            class="btn btn-dark full"
+            onclick="loginAdmin()"
         >
-            ☰
+            Kirish
         </button>
 
-        <h2 id="pageTitle">
-            Dashboard
-        </h2>
 
         <button
-            class="btn btn-success"
-            onclick="saveAll()"
+            class="btn btn-light full"
+            style="margin-top:10px"
+            onclick="closeAdmin()"
         >
-            💾 Saqlash
+            ← Saytga qaytish
         </button>
-
-    </header>
-
-
-    <div class="content">
-
-
-        <!-- DASHBOARD -->
-
-        <section id="dashboard">
-
-            <div class="stats">
-
-                <div class="stat">
-                    <span>Loyihalar</span>
-                    <strong id="projectCount">0</strong>
-                </div>
-
-                <div class="stat">
-                    <span>Havolalar</span>
-                    <strong id="linkCount">0</strong>
-                </div>
-
-                <div class="stat">
-                    <span>Status</span>
-                    <strong style="font-size:20px">
-                        Faol
-                    </strong>
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3 style="margin-bottom:10px">
-                    Xush kelibsiz 👋
-                </h3>
-
-                <p class="muted">
-                    Portfolio saytingizni shu panel orqali
-                    boshqarishingiz mumkin.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- PROFILE -->
-
-        <section id="profile" style="display:none">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-                        <h3>Profil</h3>
-                        <p class="muted">
-                            Asosiy profilingizni tahrirlang.
-                        </p>
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Ism</label>
-
-                    <input
-                        id="profileName"
-                        placeholder="Ismingiz"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Lavozim</label>
-
-                    <input
-                        id="profileJob"
-                        placeholder="Masalan: Web Developer"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Qisqa ma'lumot</label>
-
-                    <textarea
-                        id="profileBio"
-                        placeholder="O'zingiz haqingizda..."
-                    ></textarea>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Profil rasmi URL</label>
-
-                    <input
-                        id="profileImage"
-                        placeholder="https://..."
-                    >
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- PROJECTS -->
-
-        <section id="projects" style="display:none">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-                        <h3>Loyihalar</h3>
-                        <p class="muted">
-                            Har bir loyiha alohida boshqariladi.
-                        </p>
-                    </div>
-
-                    <button
-                        class="btn btn-primary"
-                        onclick="addProject()"
-                    >
-                        + Loyiha
-                    </button>
-
-                </div>
-
-
-                <div id="projectsList"></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- LINKS -->
-
-        <section id="links" style="display:none">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-                        <h3>Havolalar</h3>
-                        <p class="muted">
-                            Har bir link alohida qatorda.
-                        </p>
-                    </div>
-
-                    <button
-                        class="btn btn-primary"
-                        onclick="addLink()"
-                    >
-                        + Link qo‘shish
-                    </button>
-
-                </div>
-
-
-                <div
-                    class="link-list"
-                    id="linksList"
-                ></div>
-
-            </div>
-
-        </section>
-
 
     </div>
 
-</main>
+</div>
+
+
+
+<!-- DASHBOARD -->
+
+<div
+    class="admin-layout"
+    id="adminDashboard"
+>
+
+
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+    >
+
+        <div class="admin-logo">
+            Portfolio Admin
+        </div>
+
+
+        <button
+            class="admin-nav active"
+            onclick="
+                showAdminSection(
+                    'dashboard',
+                    this
+                )
+            "
+        >
+            📊 Dashboard
+        </button>
+
+
+        <button
+            class="admin-nav"
+            onclick="
+                showAdminSection(
+                    'profileEditor',
+                    this
+                )
+            "
+        >
+            👤 Profil
+        </button>
+
+
+        <button
+            class="admin-nav"
+            onclick="
+                showAdminSection(
+                    'projectsEditor',
+                    this
+                )
+            "
+        >
+            💼 Loyihalar
+        </button>
+
+
+        <button
+            class="admin-nav"
+            onclick="
+                showAdminSection(
+                    'linksEditor',
+                    this
+                )
+            "
+        >
+            🔗 Havolalar
+        </button>
+
+
+        <button
+            class="admin-nav"
+            onclick="logoutAdmin()"
+        >
+            🚪 Chiqish
+        </button>
+
+    </aside>
+
+
+
+    <main class="admin-main">
+
+
+        <header class="admin-topbar">
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    gap:10px;
+                "
+            >
+
+                <button
+                    class="mobile-menu"
+                    onclick="toggleAdminSidebar()"
+                >
+                    ☰
+                </button>
+
+                <h2 id="adminPageTitle">
+                    Dashboard
+                </h2>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark"
+                onclick="saveAll()"
+            >
+                💾 Saqlash
+            </button>
+
+        </header>
+
+
+
+        <div class="admin-content">
+
+
+            <!-- DASHBOARD -->
+
+            <section id="dashboard">
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <span>
+                            Loyihalar
+                        </span>
+
+                        <strong
+                            id="projectCount"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span>
+                            Havolalar
+                        </span>
+
+                        <strong
+                            id="linkCount"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span>
+                            Sayt
+                        </span>
+
+                        <strong
+                            style="
+                                font-size:20px
+                            "
+                        >
+                            Faol
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-card">
+
+                    <h3>
+                        Xush kelibsiz 👋
+                    </h3>
+
+                    <p
+                        class="muted"
+                        style="margin-top:8px"
+                    >
+                        Portfolio saytingizni
+                        shu panel orqali
+                        boshqarishingiz mumkin.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PROFILE -->
+
+            <section
+                id="profileEditor"
+                style="display:none"
+            >
+
+                <div class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Profil
+                            </h3>
+
+                            <p class="muted">
+                                Profil ma'lumotlarini
+                                tahrirlang.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Ism
+                        </label>
+
+                        <input
+                            id="profileName"
+                            placeholder="Ismingiz"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Lavozim
+                        </label>
+
+                        <input
+                            id="profileJob"
+                            placeholder="Web Developer"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Haqida
+                        </label>
+
+                        <textarea
+                            id="profileBio"
+                            placeholder="O'zingiz haqingizda..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PROJECTS -->
+
+            <section
+                id="projectsEditor"
+                style="display:none"
+            >
+
+                <div class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Loyihalar
+                            </h3>
+
+                            <p class="muted">
+                                Har bir loyiha
+                                alohida qator.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="btn btn-dark"
+                            onclick="addProject()"
+                        >
+                            + Loyiha qo‘shish
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="adminProjectsList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- LINKS -->
+
+            <section
+                id="linksEditor"
+                style="display:none"
+            >
+
+                <div class="admin-card">
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h3>
+                                Havolalar
+                            </h3>
+
+                            <p class="muted">
+                                Linklar alohida
+                                qatorlarda.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="btn btn-dark"
+                            onclick="addLink()"
+                        >
+                            + Link qo‘shish
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="link-list"
+                        id="adminLinksList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
 ```
 
 </div>
 
-<div class="toast" id="toast">
+<div
+    class="toast"
+    id="toast"
+>
     Saqlandi ✓
 </div>
 
 <script>
 
-/* =========================
-   DEFAULT DATA
-========================= */
+/* ==================================================
+   DATA
+================================================== */
 
-let data = JSON.parse(
-    localStorage.getItem("portfolioData")
-) || {
+let data =
+    JSON.parse(
+        localStorage.getItem(
+            "portfolioData"
+        )
+    )
+    ||
+    {
+        profile: {
+            name: "Salohiddin",
+            job: "Web Developer",
+            bio:
+                "Zamonaviy va foydalanuvchiga qulay web loyihalar yarataman."
+        },
 
-    profile: {
-        name: "",
-        job: "",
-        bio: "",
-        image: ""
-    },
+        projects: [],
 
-    projects: [],
-
-    links: []
-
-};
+        links: []
+    };
 
 
-/* =========================
-   LOGIN
-========================= */
+/* ==================================================
+   ADMIN PASSWORD
+================================================== */
 
 const ADMIN_PASSWORD = "1234";
 
-function login() {
+
+/* ==================================================
+   PAGE LOAD
+================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        renderPortfolio();
+
+    }
+);
+
+
+/* ==================================================
+   OPEN ADMIN
+================================================== */
+
+function openAdmin() {
+
+    document.getElementById(
+        "adminPanel"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "adminLogin"
+    ).style.display = "flex";
+
+
+    document.getElementById(
+        "adminDashboard"
+    ).style.display = "none";
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    setTimeout(() => {
+
+        document.getElementById(
+            "adminPassword"
+        ).focus();
+
+    }, 100);
+
+}
+
+
+/* ==================================================
+   CLOSE ADMIN
+================================================== */
+
+function closeAdmin() {
+
+    document.getElementById(
+        "adminPanel"
+    ).style.display = "none";
+
+
+    document.body.style.overflow =
+        "auto";
+
+}
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+function loginAdmin() {
 
     const password =
-        document.getElementById("password").value;
+        document.getElementById(
+            "adminPassword"
+        ).value;
 
-    if (password === ADMIN_PASSWORD) {
 
-        document.getElementById("loginPage").style.display =
-            "none";
+    if (
+        password !==
+        ADMIN_PASSWORD
+    ) {
 
-        document.getElementById("admin").style.display =
-            "block";
+        alert(
+            "Admin paroli noto‘g‘ri!"
+        );
 
-        loadData();
-
-    } else {
-
-        alert("Parol noto‘g‘ri!");
+        return;
 
     }
 
+
+    document.getElementById(
+        "adminLogin"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "adminDashboard"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "adminPassword"
+    ).value = "";
+
+
+    loadAdminData();
+
 }
 
 
-function logout() {
+/* ==================================================
+   LOGOUT
+================================================== */
 
-    document.getElementById("admin").style.display =
-        "none";
+function logoutAdmin() {
 
-    document.getElementById("loginPage").style.display =
-        "flex";
+    document.getElementById(
+        "adminDashboard"
+    ).style.display = "none";
 
-    document.getElementById("password").value = "";
+
+    document.getElementById(
+        "adminLogin"
+    ).style.display = "flex";
 
 }
 
 
-/* =========================
-   SIDEBAR
-========================= */
+/* ==================================================
+   ADMIN SIDEBAR
+================================================== */
 
-function toggleSidebar() {
+function toggleAdminSidebar() {
 
     document
-        .getElementById("sidebar")
-        .classList.toggle("open");
+        .getElementById(
+            "adminSidebar"
+        )
+        .classList.toggle(
+            "open"
+        );
 
 }
 
 
-function showSection(section, button) {
+function showAdminSection(
+    section,
+    button
+) {
 
     const sections = [
         "dashboard",
-        "profile",
-        "projects",
-        "links"
+        "profileEditor",
+        "projectsEditor",
+        "linksEditor"
     ];
 
-    sections.forEach(id => {
 
-        document.getElementById(id).style.display =
-            id === section ? "block" : "none";
+    sections.forEach(
+        id => {
 
-    });
+            document.getElementById(
+                id
+            ).style.display =
+                id === section
+                ? "block"
+                : "none";
+
+        }
+    );
 
 
     document
-        .querySelectorAll(".nav-btn")
-        .forEach(btn => btn.classList.remove("active"));
+        .querySelectorAll(
+            ".admin-nav"
+        )
+        .forEach(
+            btn =>
+                btn.classList.remove(
+                    "active"
+                )
+        );
 
-    button.classList.add("active");
+
+    button.classList.add(
+        "active"
+    );
 
 
     const titles = {
 
-        dashboard: "Dashboard",
-        profile: "Profil",
-        projects: "Loyihalar",
-        links: "Havolalar"
+        dashboard:
+            "Dashboard",
+
+        profileEditor:
+            "Profil",
+
+        projectsEditor:
+            "Loyihalar",
+
+        linksEditor:
+            "Havolalar"
 
     };
 
-    document.getElementById("pageTitle").textContent =
+
+    document.getElementById(
+        "adminPageTitle"
+    ).textContent =
         titles[section];
 
 
     document
-        .getElementById("sidebar")
-        .classList.remove("open");
+        .getElementById(
+            "adminSidebar"
+        )
+        .classList.remove(
+            "open"
+        );
 
 }
 
 
-/* =========================
-   LOAD
-========================= */
+/* ==================================================
+   LOAD ADMIN
+================================================== */
 
-function loadData() {
+function loadAdminData() {
 
-    document.getElementById("profileName").value =
+    document.getElementById(
+        "profileName"
+    ).value =
         data.profile.name || "";
 
-    document.getElementById("profileJob").value =
+
+    document.getElementById(
+        "profileJob"
+    ).value =
         data.profile.job || "";
 
-    document.getElementById("profileBio").value =
+
+    document.getElementById(
+        "profileBio"
+    ).value =
         data.profile.bio || "";
 
-    document.getElementById("profileImage").value =
-        data.profile.image || "";
 
+    renderAdminProjects();
 
-    renderProjects();
-
-    renderLinks();
+    renderAdminLinks();
 
     updateStats();
 
 }
 
 
-/* =========================
-   SAVE
-========================= */
+/* ==================================================
+   SAVE ALL
+================================================== */
 
 function saveAll() {
 
     data.profile.name =
-        document.getElementById("profileName").value;
+        document.getElementById(
+            "profileName"
+        ).value;
+
 
     data.profile.job =
-        document.getElementById("profileJob").value;
+        document.getElementById(
+            "profileJob"
+        ).value;
+
 
     data.profile.bio =
-        document.getElementById("profileBio").value;
-
-    data.profile.image =
-        document.getElementById("profileImage").value;
-
-
-    document.querySelectorAll(
-        ".project"
-    ).forEach((element, index) => {
-
-        if (!data.projects[index]) return;
-
-        data.projects[index].title =
-            element.querySelector(".project-title").value;
-
-        data.projects[index].description =
-            element.querySelector(".project-description").value;
-
-        data.projects[index].image =
-            element.querySelector(".project-image").value;
-
-    });
+        document.getElementById(
+            "profileBio"
+        ).value;
 
 
-    document.querySelectorAll(
-        ".link-row"
-    ).forEach((element, index) => {
+    document
+        .querySelectorAll(
+            ".project-admin"
+        )
+        .forEach(
+            (element, index) => {
 
-        if (!data.links[index]) return;
+                if (
+                    !data.projects[index]
+                )
+                    return;
 
-        data.links[index].name =
-            element.querySelector(".link-name").value;
 
-        data.links[index].url =
-            element.querySelector(".link-url").value;
+                data.projects[index]
+                    .title =
+                    element.querySelector(
+                        ".project-title"
+                    ).value;
 
-    });
+
+                data.projects[index]
+                    .description =
+                    element.querySelector(
+                        ".project-description"
+                    ).value;
+
+
+                data.projects[index]
+                    .image =
+                    element.querySelector(
+                        ".project-image"
+                    ).value;
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".link-row"
+        )
+        .forEach(
+            (element, index) => {
+
+                if (
+                    !data.links[index]
+                )
+                    return;
+
+
+                data.links[index]
+                    .name =
+                    element.querySelector(
+                        ".link-name"
+                    ).value;
+
+
+                data.links[index]
+                    .url =
+                    element.querySelector(
+                        ".link-url"
+                    ).value;
+
+            }
+        );
 
 
     localStorage.setItem(
@@ -981,28 +1948,35 @@ function saveAll() {
     );
 
 
-    showToast("Ma'lumotlar saqlandi ✓");
+    renderPortfolio();
 
     updateStats();
+
+    showToast(
+        "Ma'lumotlar saqlandi ✓"
+    );
 
 }
 
 
-/* =========================
+/* ==================================================
    PROJECTS
-========================= */
+================================================== */
 
 function addProject() {
 
     data.projects.push({
 
         title: "",
+
         description: "",
+
         image: ""
 
     });
 
-    renderProjects();
+
+    renderAdminProjects();
 
     updateStats();
 
@@ -1015,11 +1989,17 @@ function deleteProject(index) {
         !confirm(
             "Bu loyihani o‘chirishni xohlaysizmi?"
         )
-    ) return;
+    )
+        return;
 
-    data.projects.splice(index, 1);
 
-    renderProjects();
+    data.projects.splice(
+        index,
+        1
+    );
+
+
+    renderAdminProjects();
 
     saveAll();
 
@@ -1028,64 +2008,91 @@ function deleteProject(index) {
 
 function moveProjectUp(index) {
 
-    if (index <= 0) return;
+    if (
+        index <= 0
+    )
+        return;
+
 
     [
         data.projects[index - 1],
         data.projects[index]
-    ] = [
+    ]
+    =
+    [
         data.projects[index],
         data.projects[index - 1]
     ];
 
-    renderProjects();
+
+    renderAdminProjects();
 
 }
 
 
 function moveProjectDown(index) {
 
-    if (index >= data.projects.length - 1)
+    if (
+        index >=
+        data.projects.length - 1
+    )
         return;
+
 
     [
         data.projects[index],
         data.projects[index + 1]
-    ] = [
+    ]
+    =
+    [
         data.projects[index + 1],
         data.projects[index]
     ];
 
-    renderProjects();
+
+    renderAdminProjects();
 
 }
 
 
-function renderProjects() {
+function renderAdminProjects() {
 
     const container =
-        document.getElementById("projectsList");
+        document.getElementById(
+            "adminProjectsList"
+        );
+
 
     container.innerHTML = "";
 
 
-    if (data.projects.length === 0) {
+    if (
+        data.projects.length === 0
+    ) {
 
         container.innerHTML = `
-            <div style="
-                text-align:center;
-                padding:40px;
-                color:#6b7280;
-            ">
+
+            <div
+                style="
+                    text-align:center;
+                    padding:40px;
+                    color:#6b7280;
+                "
+            >
+
                 Hozircha loyiha yo‘q.
+
                 <br><br>
+
                 <button
-                    class="btn btn-primary"
+                    class="btn btn-dark"
                     onclick="addProject()"
                 >
-                    + Birinchi loyihani qo‘shish
+                    + Loyiha qo‘shish
                 </button>
+
             </div>
+
         `;
 
         return;
@@ -1093,102 +2100,143 @@ function renderProjects() {
     }
 
 
-    data.projects.forEach((project, index) => {
+    data.projects.forEach(
+        (project, index) => {
 
-        const div =
-            document.createElement("div");
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        div.className = "project";
 
-        div.innerHTML = `
+            div.className =
+                "project-admin";
 
-            <div class="project-top">
 
-                <div class="project-number">
-                    Loyiha #${index + 1}
+            div.innerHTML = `
+
+                <div class="project-top">
+
+                    <strong>
+                        Loyiha #${index + 1}
+                    </strong>
+
+                    <div
+                        class="row-buttons"
+                    >
+
+                        <button
+                            class="icon-btn"
+                            onclick="
+                                moveProjectUp(
+                                    ${index}
+                                )
+                            "
+                        >
+                            ↑
+                        </button>
+
+                        <button
+                            class="icon-btn"
+                            onclick="
+                                moveProjectDown(
+                                    ${index}
+                                )
+                            "
+                        >
+                            ↓
+                        </button>
+
+                        <button
+                            class="icon-btn"
+                            onclick="
+                                deleteProject(
+                                    ${index}
+                                )
+                            "
+                        >
+                            🗑
+                        </button>
+
+                    </div>
+
                 </div>
 
-                <div class="row-buttons">
 
-                    <button
-                        class="icon-btn"
-                        onclick="moveProjectUp(${index})"
-                        title="Yuqoriga"
-                    >
-                        ↑
-                    </button>
+                <div class="form-group">
 
-                    <button
-                        class="icon-btn"
-                        onclick="moveProjectDown(${index})"
-                        title="Pastga"
-                    >
-                        ↓
-                    </button>
+                    <label>
+                        Loyiha nomi
+                    </label>
 
-                    <button
-                        class="icon-btn"
-                        onclick="deleteProject(${index})"
-                        title="O‘chirish"
+                    <input
+                        class="project-title"
+                        value="${escapeHTML(
+                            project.title
+                        )}"
+                        placeholder="
+                            Loyiha nomi
+                        "
                     >
-                        🗑
-                    </button>
 
                 </div>
 
+
+                <div class="form-group">
+
+                    <label>
+                        Tavsif
+                    </label>
+
+                    <textarea
+                        class="
+                            project-description
+                        "
+                        placeholder="
+                            Loyiha haqida...
+                        "
+                    >${escapeHTML(
+                        project.description
+                    )}</textarea>
+
+```
             </div>
 
 
             <div class="form-group">
 
-                <label>Loyiha nomi</label>
+                <label>
+                    Rasm URL
+                </label>
 
                 <input
-                    class="project-title"
-                    value="${escapeHTML(project.title)}"
-                    placeholder="Masalan: Portfolio Web Site"
+                    class="project-image"
+                    value="${escapeHTML(
+                        project.image
+                    )}"
+                    placeholder="
+                        https://...
+                    "
                 >
 
             </div>
 
-
-            <div class="form-group">
-
-                <label>Tavsif</label>
-
-                <textarea
-                    class="project-description"
-                    placeholder="Loyiha haqida..."
-                >${escapeHTML(project.description)}</textarea>
-
-```
-        </div>
+        `;
 
 
-        <div class="form-group">
+        container.appendChild(
+            div
+        );
 
-            <label>Rasm URL</label>
-
-            <input
-                class="project-image"
-                value="${escapeHTML(project.image)}"
-                placeholder="https://..."
-            >
-
-        </div>
-
-    `;
-
-    container.appendChild(div);
-
-});
+    }
+);
 ```
 
 }
 
-/* =========================
+/* ==================================================
 LINKS
-========================= */
+================================================== */
 
 function addLink() {
 
@@ -1196,11 +2244,13 @@ function addLink() {
 data.links.push({
 
     name: "",
+
     url: ""
 
 });
 
-renderLinks();
+
+renderAdminLinks();
 
 updateStats();
 ```
@@ -1210,9 +2260,13 @@ updateStats();
 function deleteLink(index) {
 
 ```
-data.links.splice(index, 1);
+data.links.splice(
+    index,
+    1
+);
 
-renderLinks();
+
+renderAdminLinks();
 
 saveAll();
 ```
@@ -1222,17 +2276,24 @@ saveAll();
 function moveLinkUp(index) {
 
 ```
-if (index <= 0) return;
+if (
+    index <= 0
+)
+    return;
+
 
 [
     data.links[index - 1],
     data.links[index]
-] = [
+]
+=
+[
     data.links[index],
     data.links[index - 1]
 ];
 
-renderLinks();
+
+renderAdminLinks();
 ```
 
 }
@@ -1240,41 +2301,59 @@ renderLinks();
 function moveLinkDown(index) {
 
 ```
-if (index >= data.links.length - 1)
+if (
+    index >=
+    data.links.length - 1
+)
     return;
+
 
 [
     data.links[index],
     data.links[index + 1]
-] = [
+]
+=
+[
     data.links[index + 1],
     data.links[index]
 ];
 
-renderLinks();
+
+renderAdminLinks();
 ```
 
 }
 
-function renderLinks() {
+function renderAdminLinks() {
 
 ```
 const container =
-    document.getElementById("linksList");
+    document.getElementById(
+        "adminLinksList"
+    );
+
 
 container.innerHTML = "";
 
 
-if (data.links.length === 0) {
+if (
+    data.links.length === 0
+) {
 
     container.innerHTML = `
-        <div style="
-            text-align:center;
-            padding:40px;
-            color:#6b7280;
-        ">
+
+        <div
+            style="
+                text-align:center;
+                padding:40px;
+                color:#6b7280;
+            "
+        >
+
             Hozircha link yo‘q.
+
         </div>
+
     `;
 
     return;
@@ -1282,135 +2361,428 @@ if (data.links.length === 0) {
 }
 
 
-data.links.forEach((link, index) => {
+data.links.forEach(
+    (link, index) => {
 
-    const row =
-        document.createElement("div");
+        const row =
+            document.createElement(
+                "div"
+            );
 
-    row.className = "link-row";
 
-    row.innerHTML = `
+        row.className =
+            "link-row";
 
-        <input
-            class="link-name"
-            value="${escapeHTML(link.name)}"
-            placeholder="Link nomi"
-        >
 
-        <input
-            class="link-url"
-            value="${escapeHTML(link.url)}"
-            placeholder="https://example.com"
-        >
+        row.innerHTML = `
 
-        <div class="row-buttons">
-
-            <button
-                class="icon-btn"
-                onclick="moveLinkUp(${index})"
-                title="Yuqoriga"
+            <input
+                class="link-name"
+                value="${escapeHTML(
+                    link.name
+                )}"
+                placeholder="
+                    Link nomi
+                "
             >
-                ↑
-            </button>
 
-            <button
-                class="icon-btn"
-                onclick="moveLinkDown(${index})"
-                title="Pastga"
+
+            <input
+                class="link-url"
+                value="${escapeHTML(
+                    link.url
+                )}"
+                placeholder="
+                    https://example.com
+                "
             >
-                ↓
-            </button>
 
-            <button
-                class="icon-btn"
-                onclick="deleteLink(${index})"
-                title="O‘chirish"
+
+            <div
+                class="row-buttons"
             >
-                🗑
-            </button>
 
-        </div>
+                <button
+                    class="icon-btn"
+                    onclick="
+                        moveLinkUp(
+                            ${index}
+                        )
+                    "
+                >
+                    ↑
+                </button>
 
-    `;
+                <button
+                    class="icon-btn"
+                    onclick="
+                        moveLinkDown(
+                            ${index}
+                        )
+                    "
+                >
+                    ↓
+                </button>
 
-    container.appendChild(row);
+                <button
+                    class="icon-btn"
+                    onclick="
+                        deleteLink(
+                            ${index}
+                        )
+                    "
+                >
+                    🗑
+                </button>
 
-});
+            </div>
+
+        `;
+
+
+        container.appendChild(
+            row
+        );
+
+    }
+);
 ```
 
 }
 
-/* =========================
+/* ==================================================
+PUBLIC PORTFOLIO
+================================================== */
+
+function renderPortfolio() {
+
+```
+const profile =
+    data.profile;
+
+
+document.getElementById(
+    "heroName"
+).textContent =
+    profile.name ||
+    "Salohiddin";
+
+
+document.getElementById(
+    "heroJob"
+).textContent =
+    profile.job ||
+    "Web Developer";
+
+
+document.getElementById(
+    "heroBio"
+).textContent =
+    profile.bio ||
+    "";
+
+
+document.getElementById(
+    "aboutText"
+).textContent =
+    profile.bio ||
+    "";
+
+
+document.getElementById(
+    "aboutName"
+).textContent =
+    profile.name ||
+    "Salohiddin";
+
+
+document.getElementById(
+    "aboutJob"
+).textContent =
+    profile.job ||
+    "Web Developer";
+
+
+document.getElementById(
+    "footerName"
+).textContent =
+    profile.name ||
+    "Salohiddin";
+
+
+document.getElementById(
+    "siteLogo"
+).textContent =
+    profile.name ||
+    "Salohiddin";
+
+
+renderPublicProjects();
+
+renderPublicLinks();
+```
+
+}
+
+/* ==================================================
+PUBLIC PROJECTS
+================================================== */
+
+function renderPublicProjects() {
+
+```
+const container =
+    document.getElementById(
+        "publicProjects"
+    );
+
+
+container.innerHTML = "";
+
+
+if (
+    data.projects.length === 0
+) {
+
+    container.innerHTML = `
+
+        <div
+            style="
+                color:#6b7280;
+                grid-column:1/-1;
+            "
+        >
+            Hozircha loyihalar
+            qo‘shilmagan.
+        </div>
+
+    `;
+
+    return;
+
+}
+
+
+data.projects.forEach(
+    project => {
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "project-card";
+
+
+        card.innerHTML = `
+
+            ${
+                project.image
+                ?
+                `
+                <img
+                    class="project-image"
+                    src="${escapeHTML(
+                        project.image
+                    )}"
+                    alt="${escapeHTML(
+                        project.title
+                    )}"
+                    onerror="
+                        this.style.display='none'
+                    "
+                >
+                `
+                :
+                ""
+            }
+
+
+            <div
+                class="project-body"
+            >
+
+                <h3>
+                    ${escapeHTML(
+                        project.title
+                    ) || "Loyiha"}
+                </h3>
+
+                <p>
+                    ${escapeHTML(
+                        project.description
+                    )}
+                </p>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(
+            card
+        );
+
+    }
+);
+```
+
+}
+
+/* ==================================================
+PUBLIC LINKS
+================================================== */
+
+function renderPublicLinks() {
+
+```
+const container =
+    document.getElementById(
+        "publicLinks"
+    );
+
+
+container.innerHTML = "";
+
+
+data.links.forEach(
+    link => {
+
+        if (
+            !link.name ||
+            !link.url
+        )
+            return;
+
+
+        const a =
+            document.createElement(
+                "a"
+            );
+
+
+        a.className =
+            "social-link";
+
+
+        a.href =
+            link.url;
+
+
+        a.target =
+            "_blank";
+
+
+        a.rel =
+            "noopener noreferrer";
+
+
+        a.textContent =
+            link.name;
+
+
+        container.appendChild(
+            a
+        );
+
+    }
+);
+```
+
+}
+
+/* ==================================================
 STATS
-========================= */
+================================================== */
 
 function updateStats() {
 
 ```
-document.getElementById("projectCount").textContent =
+document.getElementById(
+    "projectCount"
+).textContent =
     data.projects.length;
 
-document.getElementById("linkCount").textContent =
+
+document.getElementById(
+    "linkCount"
+).textContent =
     data.links.length;
 ```
 
 }
 
-/* =========================
+/* ==================================================
 TOAST
-========================= */
+================================================== */
 
 function showToast(message) {
 
 ```
 const toast =
-    document.getElementById("toast");
+    document.getElementById(
+        "toast"
+    );
 
-toast.textContent = message;
 
-toast.classList.add("show");
+toast.textContent =
+    message;
 
-setTimeout(() => {
 
-    toast.classList.remove("show");
+toast.classList.add(
+    "show"
+);
 
-}, 2500);
+
+setTimeout(
+    () => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },
+    2500
+);
 ```
 
 }
 
-/* =========================
-SECURITY / HTML
-========================= */
+/* ==================================================
+ESCAPE HTML
+================================================== */
 
 function escapeHTML(value) {
 
 ```
-return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-```
-
-}
-
-/* =========================
-AUTO SAVE INPUTS
-========================= */
-
-document.addEventListener(
-"input",
-function() {
-
-```
-    updateStats();
-
-}
-```
-
+return String(
+    value || ""
+)
+.replace(
+    /&/g,
+    "&amp;"
+)
+.replace(
+    /</g,
+    "&lt;"
+)
+.replace(
+    />/g,
+    "&gt;"
+)
+.replace(
+    /"/g,
+    "&quot;"
+)
+.replace(
+    /'/g,
+    "&#039;"
 );
+```
+
+}
 
 </script>
 
