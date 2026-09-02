@@ -41,12 +41,14 @@ section{padding:92px 0}.section-head{display:grid;grid-template-columns:1fr auto
 .skill-groups{display:grid;gap:26px}.skill-group h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.skill{padding:20px}.skill-top{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:800}.skill small{color:var(--muted);font-weight:600}.bar{height:5px;background:#edf0f2;border-radius:99px;overflow:hidden;margin-top:16px}.bar i{display:block;height:100%;background:var(--brand);border-radius:inherit}
 .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.project{padding:28px;min-height:290px;display:flex;flex-direction:column;position:relative;overflow:hidden}.project:before{content:"";position:absolute;right:-55px;top:-55px;width:180px;height:180px;border-radius:50%;background:rgba(15,118,110,.06)}.project-num{font-size:12px;color:var(--brand);font-weight:800;letter-spacing:.12em}.project h3{font-size:26px;letter-spacing:-.04em;margin:22px 0 10px}.project p{margin:0;color:var(--muted);font-size:14px}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.tag{padding:6px 9px;border-radius:99px;background:var(--soft);font-size:11px;font-weight:700;color:#475467}.project-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:24px}.project-links a{font-size:13px;font-weight:800;color:var(--brand)}
 .achievements{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.achievement{padding:22px}.achievement-icon{width:42px;height:42px;border-radius:12px;background:#fef3c7;display:grid;place-items:center;font-size:20px}.achievement h3{margin:18px 0 6px;font-size:16px}.achievement p{margin:0;color:var(--muted);font-size:13px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}.gallery-item{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;display:flex;flex-direction:column}.gallery-item img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#eef1f2}.gallery-caption{padding:14px 16px;font-size:13px;color:#344054;font-weight:700;line-height:1.5}.gallery-empty{color:var(--muted);font-size:14px;padding:20px 0}
 .contact-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}.contact-panel{padding:30px;background:var(--ink);color:#fff;border-radius:24px}.contact-panel h2{font-size:36px;letter-spacing:-.04em;line-height:1.05;margin:0 0 16px}.contact-panel p{color:#cbd5e1}.contact-links{margin-top:30px;display:grid;gap:10px}.contact-link{padding:14px;border:1px solid rgba(255,255,255,.13);border-radius:12px;color:#e5e7eb;font-size:13px}.contact-form{padding:30px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#475467}.field input,.field textarea{border:1px solid var(--line);border-radius:10px;padding:12px 13px;outline:none;background:#fff}.field textarea{min-height:140px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(15,118,110,.1)}
 .footer{padding:30px 0 46px;color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:22px}
 .toast{position:fixed;right:20px;bottom:20px;background:#101828;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;transform:translateY(120px);opacity:0;transition:.25s;z-index:100}.toast.show{transform:translateY(0);opacity:1}
 .mobile-nav{display:none}
-@media(max-width:900px){.hero-grid,.about-grid,.contact-wrap{grid-template-columns:1fr}.profile-card{max-width:430px}.skills{grid-template-columns:repeat(2,1fr)}.section-head{grid-template-columns:1fr}.section-note{max-width:600px}}
-@media(max-width:680px){.navlinks{display:none}.menu-btn{display:block}.mobile-nav.open{display:grid}.mobile-nav{position:absolute;top:78px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:16px 20px;gap:14px;box-shadow:var(--shadow)}.mobile-nav a{font-weight:700;color:#475467}.hero{padding:60px 0}.stat-grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stats{padding:20px 0}.skills,.projects,.achievements{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.section-head{margin-bottom:28px}.footer-inner{flex-direction:column}}
+@media(max-width:900px){.hero-grid,.about-grid,.contact-wrap{grid-template-columns:1fr}.profile-card{max-width:430px}.skills{grid-template-columns:repeat(2,1fr)}.projects{grid-template-columns:1fr}.achievements{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}.section-head{grid-template-columns:1fr}.section-note{max-width:600px}section{padding:64px 0}}
+@media(max-width:680px){.navlinks{display:none}.menu-btn{display:block}.mobile-nav.open{display:grid}.mobile-nav{position:absolute;top:78px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:16px 20px;gap:14px;box-shadow:var(--shadow)}.mobile-nav a{font-weight:700;color:#475467}.hero{padding:60px 0}.stat-grid{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stats{padding:20px 0}.skills,.projects,.achievements{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.section-head{margin-bottom:28px}.footer-inner{flex-direction:column;align-items:flex-start}}
+@media(max-width:420px){.gallery{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,11 +57,11 @@ section{padding:92px 0}.section-head{display:grid;grid-template-columns:1fr auto
     <div class="container nav">
       <a class="brand" href="#top" aria-label="Bosh sahifa"><div class="brand-mark">TS</div><div><strong id="brandName">Teshaboyev Salohiddin</strong><span>Portfolio · Technology & Projects</span></div></a>
       <nav class="navlinks">
-        <a href="#about">Men haqimda</a><a href="#skills">Ko'nikmalar</a><a href="#projects">Loyihalar</a><a href="#contact">Bog'lanish</a>
+        <a href="#about">Men haqimda</a><a href="#skills">Ko'nikmalar</a><a href="#projects">Loyihalar</a><a href="#yutuqlarim">Yutuqlarim</a><a href="#contact">Bog'lanish</a>
       </nav>
       <button class="menu-btn" id="menuBtn" aria-label="Menyu">☰</button>
     </div>
-    <nav class="mobile-nav" id="mobileNav"><a href="#about">Men haqda</a><a href="#skills">Ko'nikmalar</a><a href="#projects">Loyihalar</a><a href="#contact">Bog'lanish</a></nav>
+    <nav class="mobile-nav" id="mobileNav"><a href="#about">Men haqda</a><a href="#skills">Ko'nikmalar</a><a href="#projects">Loyihalar</a><a href="#yutuqlarim">Yutuqlarim</a><a href="#contact">Bog'lanish</a></nav>
   </header>
 
   <main id="top">
@@ -97,9 +99,14 @@ section{padding:92px 0}.section-head{display:grid;grid-template-columns:1fr auto
       <div class="achievements" id="achievementsGrid"></div>
     </div></section>
 
+    <section id="yutuqlarim"><div class="container">
+      <div class="section-head"><div><div class="section-kicker">05 · Galereya</div><h2 class="section-title">Yutuqlarim</h2></div><p class="section-note">Musobaqalar, sertifikatlar va loyihalardagi yutuqlarimdan lavhalar.</p></div>
+      <div class="gallery" id="galleryGrid"></div>
+    </div></section>
+
     <section id="contact"><div class="container">
       <div class="contact-wrap">
-        <div class="contact-panel"><div class="section-kicker" style="color:#5eead4">05 · Aloqa</div><h2>Hamkorlik va yangi loyihalar uchun ochiqman.</h2><p>Texnologiya, ta'lim yoki yangi loyiha haqida gaplashmoqchi bo'lsangiz, qulay aloqa kanalini tanlang.</p><div class="contact-links" id="contactLinks"></div></div>
+        <div class="contact-panel"><div class="section-kicker" style="color:#5eead4">06 · Aloqa</div><h2>Hamkorlik va yangi loyihalar uchun ochiqman.</h2><p>Texnologiya, ta'lim yoki yangi loyiha haqida gaplashmoqchi bo'lsangiz, qulay aloqa kanalini tanlang.</p><div class="contact-links" id="contactLinks"></div></div>
         <form class="card contact-form" id="contactForm">
           <div class="section-kicker">Xabar yuborish</div>
           <div class="form-grid">
@@ -115,7 +122,7 @@ section{padding:92px 0}.section-head{display:grid;grid-template-columns:1fr auto
       </div>
     </div></section>
   </main>
-  <footer class="footer"><div class="container footer-inner"><span id="copyright">© 2026 Teshaboyev Salohiddin</span><a href="admin.html" style="color:var(--muted)">Admin</a></div></footer>
+  <footer class="footer"><div class="container footer-inner"><span id="copyright">© 2026 Teshaboyev Salohiddin</span></div></footer>
 
 <div class="toast" id="toast"></div>
 <script type="module">
@@ -162,6 +169,10 @@ const defaults = {
   ["Robototexnika","ESP32 va sensorlar bilan amaliy mashg'ulotlar"],
   ["Deutschsmart School","Nemis tili bo'yicha qo'shimcha ta'lim"]
  ],
+ gallery:[
+  {image:"",caption:"Robbit robototexnika klubi mashg'ulotidan lavha"},
+  {image:"",caption:"Loyiha taqdimoti — sertifikat va natija"}
+ ],
  contacts:[
   ["Telefon","+998 95 100 01 30","tel:+998951000130"],
   ["Telegram","@salohiddinTm","https://t.me/salohiddinTm"],
@@ -192,6 +203,10 @@ function renderPublic(){
  document.getElementById("skillGroups").innerHTML=data.skills.map(g=>`<div class="skill-group"><h3>${esc(g.group)}</h3><div class="skills">${g.items.map(([n,l,level])=>`<article class="card skill"><div class="skill-top"><span>${esc(n)}</span><small>${esc(level)}</small></div><div class="bar"><i style="width:${Math.max(0,Math.min(100,+l||0))}%"></i></div></article>`).join("")}</div></div>`).join("");
  document.getElementById("projectsGrid").innerHTML=data.projects.map((p,i)=>`<article class="card project"><span class="project-num">PROJECT ${String(i+1).padStart(2,"0")}</span><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p><div class="tags">${(p.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div><div class="project-links"><span>${esc(p.type)}</span>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">Ko'rish ↗</a>`:""}</div></article>`).join("");
  document.getElementById("achievementsGrid").innerHTML=data.achievements.map((a,i)=>`<article class="card achievement"><div class="achievement-icon">${["◈","◌","↗"][i%3]}</div><h3>${esc(a[0])}</h3><p>${esc(a[1])}</p></article>`).join("");
+ const gallery=data.gallery||[];
+ document.getElementById("galleryGrid").innerHTML = gallery.length
+  ? gallery.map(g=>`<figure class="gallery-item"><img src="${esc(g.image||EMBEDDED_PHOTO)}" alt="${esc(g.caption||"Yutuq rasmi")}"><figcaption class="gallery-caption">${esc(g.caption||"")}</figcaption></figure>`).join("")
+  : `<p class="gallery-empty">Hozircha yutuqlar qo'shilmagan.</p>`;
  document.getElementById("contactLinks").innerHTML=data.contacts.map(c=>`<a class="contact-link" href="${esc(c[2])}" target="${c[2].startsWith("http")?"_blank":"_self"}"><strong>${esc(c[0])}</strong><br>${esc(c[1])}</a>`).join("");
  document.getElementById("copyright").textContent=`© ${new Date().getFullYear()} ${data.profile.name}`;
 }
